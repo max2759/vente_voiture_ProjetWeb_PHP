@@ -8,6 +8,7 @@ $(document).ready(function(){
                 url: "../CONTROL/search.php",
                 method: 'POST',
                 data: {search: searchVal},
+                dataType: 'html',
                 async: true,
                 success: function(data){
                     $('#results').html(data);
