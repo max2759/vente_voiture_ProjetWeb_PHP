@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="../VIEW/css/bootstrap-grid.css">
     <link rel="stylesheet" href="../VIEW/css/bootstrap-reboot.css">
     <link rel="stylesheet" href="../VIEW/css/style.css">
+    <link rel="icon" href="../VIEW/img/favicon.ico" type="image/x-icon">
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
