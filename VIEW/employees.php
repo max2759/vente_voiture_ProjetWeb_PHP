@@ -43,7 +43,7 @@
         <th scope="col">Nom</th>
         <th scope="col">Prénom</th>
         <th scope="col">Pseudo</th>
-        <th scope="col">Mot de passe</th>
+        <th scope="col">Modifier</th>
 
 
         <?php
@@ -54,7 +54,7 @@
             echo '<td>'.$k->name.'</td>';
             echo '<td>'.$k->firstname.'</td>';
             echo '<td>'.$k->pseudo.'</td>';
-            echo '<td>'.$k->password.'</td>';
+            echo '<td><button type="button" class="btn btn-success btn-sm update" id="'.$k->users_ID.'">Modifier</button></td>';
             echo '</tr>';
         }
         ?>
