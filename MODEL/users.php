@@ -14,4 +14,12 @@ class users extends model
         $req->bindParam(':pPseudo', $pseudo, PDO::PARAM_STR, 100);
         $req->execute();
     }
+
+    function updateUser($firstname, $name, $pseudo){
+        $req = $this->stmt->prepare('CALL updateUser(:pFirstname, pName, pPseudo)');
+        $req->bindParam(':pFirstname', $firstname, PDO::PARAM_STR, 100);
+        $req->bindParam(':pName', $name, PDO::PARAM_STR, 100);
+        $req->bindParam(':pPseudo', $password, PDO::PARAM_STR, 255);
+        $req->execute();
+    }
 }
