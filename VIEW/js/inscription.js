@@ -60,28 +60,34 @@ $(document).ready(function(){
         }
     })
 
-
-    allPass.on('keyup', function () {
-        $('.alert').remove();
-        if (pass.val() !== "" && pass2.val() !== "") {
-            var passVal = pass.val();
-            var pass2Val = pass2.val();
-            if (pseudo !=="" && nom !== "" && prenom !=="" && pass !== "" && pass2!=="" && passVal == pass2Val && pass2Val == passVal) {
-                validateUser.prop('disabled', false);
-                pass2.css("border-color", "#5cb85c");
-                pass.css("border-color", "#5cb85c");
-
-            } else {
+    allPass.on('keyup', function(){
+        $('.passwordAlert').remove();
+        if(pass.val() !="" && pass2.val() !=""){
+            if(pseudo.val() !== "" || nom.val() !== "" || prenom.val() !==""){
+                if($('.pseudoAlert').length || $('.nomAlert').length || $('.prenomAlert').length){
+                    validateUser.prop('disabled', true);
+                    $("<div class=\"alert alert-danger passwordAlert\" role=\"alert\">Un des champs n'est pas bon !</div>").insertAfter(pass2);
+                }else{
+                    if(pass.val() == pass2.val() && pass2.val() == pass.val()){
+                        allPass.css("border-color", "#5cb85c");
+                        validateUser.prop('disabled', false);
+                    }else{
+                        allPass.css("border-color", "#d9534f");
+                        validateUser.prop('disabled', true);
+                        $("<div class=\"alert alert-danger passwordAlert\" role=\"alert\">Les mots de passes ne correspondent pas !</div>").insertAfter(pass2);
+                    }
+                }
+            }else{
                 validateUser.prop('disabled', true);
+                $("<div class=\"alert alert-danger passwordAlert\" role=\"alert\">Les autres champs doivent être remplis !</div>").insertAfter(pass2);
                 pass.css("border-color", "#d9534f");
                 pass2.css("border-color", "#d9534f");
-                $("<div class=\"alert alert-danger\" role=\"alert\">Les mots de passes ne correspondent pas !</div>").insertAfter(pass2);
             }
-        } else {
+        }else{
             validateUser.prop('disabled', true);
             pass2.css("border-color", "#d9534f");
             pass.css("border-color", "#d9534f");
-            $("<div class=\"alert alert-danger\" role=\"alert\">Entrez un mot de passe!</div>").insertAfter(pass2);
+            $("<div class=\"alert alert-danger passwordAlert\" role=\"alert\">Entrez un mot de passe!</div>").insertAfter(pass2);
         }
     })
 
