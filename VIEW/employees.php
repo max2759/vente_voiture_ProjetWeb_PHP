@@ -37,14 +37,14 @@
 
     <input type="search" name="searchEmpl" id="searchEmpl" placeholder="Rechercher un employé..." class="form-control">
 
-    <div id="results"></div>
+
 
     <table class="table table-hover">
         <th scope="col">Nom</th>
         <th scope="col">Prénom</th>
         <th scope="col">Pseudo</th>
         <th scope="col">Modifier</th>
-
+        <tbody id="results">
 
         <?php
 
@@ -58,6 +58,7 @@
             echo '</tr>';
         }
         ?>
+        </tbody>
     </table>
 </div>
 

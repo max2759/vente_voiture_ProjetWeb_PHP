@@ -1,6 +1,8 @@
 <?php
 
 require_once('core.php');
+ini_set('display_errors', 1);
+error_reporting(E_ALL);
 
 if(isset($_POST["pseudo"])){
     $users = model::load("users");

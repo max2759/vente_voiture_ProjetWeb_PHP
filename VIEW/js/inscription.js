@@ -11,7 +11,7 @@ $(document).ready(function(){
     var nomPreReg = new RegExp("^[A-Z]+(([',. -][A-Za-zÀ-ÿ])?[A-Za-zÀ-ÿ]*)*$");
 
     pseudo.on('blur', function () {
-        $('.alert').remove();
+        $('.pseudoAlert').remove();
         if(pseudo.val() !== "" && pseudoReg.test(pseudo.val())) {
             var pseudoVal = pseudo.val();
             var bool = true;
@@ -21,41 +21,41 @@ $(document).ready(function(){
                 data: {pseudo: pseudoVal},
                 async: true
             }).done(function (data) {
-                $('.alert').remove();
+                $('.pseudoAlert').remove();
                 if (data !== 'true') {
                     pseudo.css("border-color", "#5cb85c");
-                    $('.alert').hide();
+                    $('.pseudoAlert').remove();
                     bool = true;
                 }else{
                     pseudo.css("border-color", "#d9534f");
-                    $("<div class=\"alert alert-danger\" role=\"alert\"> L'utilisateur existe déjà !</div>").insertAfter(pseudo);
+                    $("<div class=\"alert alert-danger pseudoAlert\" role=\"alert\"> L'utilisateur existe déjà !</div>").insertAfter(pseudo);
                     bool = false;
                 }
             })
         }else{
-            $("<div class=\"alert alert-danger\" role=\"alert\">Le nom d'utilisateur doit être au format nompre avec 3 lettres pour le prénom et 3 pour le nom !</div>").insertAfter(pseudo);
+            $("<div class=\"alert alert-danger pseudoAlert\" role=\"alert\">Le nom d'utilisateur doit être au format nompre avec 3 lettres pour le prénom et 3 pour le nom !</div>").insertAfter(pseudo);
             pseudo.css("border-color", "#d9534f");
         }
     })
 
     nom.on('blur', function(){
-        $('.alert').remove();
+        $('.nomAlert').remove();
         if(nom.val() !== "" && nomPreReg.test(nom.val())){
-            $('.alert').hide();
+            $('.nomAlert').remove();
             nom.css("border-color", "#5cb85c");
         }else{
-            $("<div class=\"alert alert-danger\" role=\"alert\">Le champ doit être rempli et le nom doit commencer par une majuscule !</div>").insertAfter(nom);
+            $("<div class=\"alert alert-danger nomAlert\" role=\"alert\">Le champ doit être rempli et le nom doit commencer par une majuscule !</div>").insertAfter(nom);
             nom.css("border-color", "#d9534f");
         }
     })
 
     prenom.on('blur', function(){
-        $('.alert').remove();
+        $('.prenomAlert').remove();
         if(prenom.val() !== "" && nomPreReg.test(prenom.val())){
-            $('.alert').hide();
+            $('.prenomAlert').hide();
             prenom.css("border-color", "#5cb85c");
         }else{
-            $("<div class=\"alert alert-danger\" role=\"alert\">Le champ doit être rempli et le prénom doit commencer par une majuscule !</div>").insertAfter(prenom);
+            $("<div class=\"alert alert-danger prenomAlert\" role=\"alert\">Le champ doit être rempli et le prénom doit commencer par une majuscule !</div>").insertAfter(prenom);
             prenom.css("border-color", "#d9534f");
         }
     })
