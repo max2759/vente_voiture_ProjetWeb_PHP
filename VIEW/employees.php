@@ -1,9 +1,15 @@
 <div class="container">
 
-    <!-- Button trigger modal -->
-    <button type="button" class="btn btn-success" data-backdrop="static" data-toggle="modal" data-target="#modalAddUser">
-        Ajouter
-    </button>
+    <div class="row justify-content-between">
+        <!-- search engine -->
+        <input type="search" name="searchEmpl" id="searchEmpl" placeholder="Rechercher un employé..." class="form-control col-4">
+
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn-success col-auto" data-backdrop="static" data-toggle="modal" data-target="#modalAddUser">
+            Ajouter
+        </button>
+    </div>
+
 
     <!-- Modal -->
     <div class="modal fade" id="modalAddUser" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -35,7 +41,7 @@
         </div>
     </div>
 
-    <input type="search" name="searchEmpl" id="searchEmpl" placeholder="Rechercher un employé..." class="form-control">
+
 
 
 
@@ -54,7 +60,7 @@
             echo '<td>'.$k->name.'</td>';
             echo '<td>'.$k->firstname.'</td>';
             echo '<td>'.$k->pseudo.'</td>';
-            echo '<td><button type="button" class="btn btn-success btn-sm update" id="'.$k->users_ID.'">Modifier</button></td>';
+            echo '<td><button type="button" class="btn btn-warning btn-sm update" id="'.$k->users_ID.'">Modifier</button></td>';
             echo '</tr>';
         }
         ?>

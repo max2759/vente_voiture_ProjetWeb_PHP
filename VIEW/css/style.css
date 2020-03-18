@@ -1,3 +1,15 @@
 .navbar .navbar-collapse {
     text-align: center;
 }
+
+.row.justify-content-between {
+    margin: 10px 10px 10px 5px;
+}
+
+.btn-warning{
+    color: #ffffff;
+}
+
+.btn-warning:hover {
+    color: #ffff;
+}
