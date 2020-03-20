@@ -13,3 +13,8 @@
 .btn-warning:hover {
     color: #ffff;
 }
+
+.btn-logout{
+    border: none;
+    background-color: transparent;
+}
