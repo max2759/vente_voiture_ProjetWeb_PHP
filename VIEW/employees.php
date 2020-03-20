@@ -1,3 +1,11 @@
+<?php
+
+if(!$_SESSION['isLogged']){
+    header('Location: ../CONTROL/connexion.php');
+    exit();
+}
+?>
+
 <div class="container">
 
     <div class="row justify-content-between">
@@ -26,7 +34,7 @@
 
                     $form = new Form("POST", "../CONTROL/addUser.php", "formAddUser", "formAddUser");
 
-                    $form->setText("Nom d'utilisateur", "nompre", "pseudo", "pseudo", "Le pseudo doit être au format nompre en minuscule et 3 lettres pour le nom et le prénom pas d\'espace");
+                    $form->setText("Nom d'utilisateur", "nompre", "pseudo", "pseudo");
                     $form->setText("Nom", "nom", "nom", "nom", "test");
                     $form->setText("Prenom", "prenom", "prenom", "prenom", "test");
                     $form->setPassword("Mot de passe", "password", "pass", "pass");

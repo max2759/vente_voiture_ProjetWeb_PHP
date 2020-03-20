@@ -1,6 +1,6 @@
 $(document).ready(function() {
 
-    $('.container').on('click', '.button', function () {
+    $('.container').on('click', '.update', function () {
         var user_ID = $(this).attr("id");
         $.ajax({
             type: 'POST',
@@ -15,6 +15,7 @@ $(document).ready(function() {
                 $('#pass2').remove();
                 $('.modal-title').text("Modifier employé");
                 $('#validateUser').prop('disabled', false);
+
             }
         })
     })

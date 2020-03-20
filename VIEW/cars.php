@@ -1,3 +1,10 @@
+<?php
+
+if(!$_SESSION['isLogged']){
+    header('Location: ../CONTROL/connexion.php');
+    exit();
+}
+?>
 <div class="container">
 
     <table class="table table-hover">

@@ -9,9 +9,9 @@ class Form
         $this->form = '<form method=' . $method . ' action=' . $action . ' name=' . $name . ' id=' . $id . '>';
     }
 
-    public function setText($label, $placeHolder, $name, $id, $message)
+    public function setText($label, $placeHolder, $name, $id)
     {
-        $this->form .= '<div class="form-group"><label>' . $label . '</label><input type="text" class="form-control" placeholder=' . $placeHolder . ' name=' . $name . ' id=' . $id . '></div>';
+        $this->form .= '<div class="form-group"><label>' . $label . '</label><input type="text" class="form-control" placeholder=' . $placeHolder . ' name=' . $name . ' id=' . $id.'></div>';
     }
 
     public function setEmail($label, $placeHolder, $name, $id)
@@ -26,7 +26,7 @@ class Form
 
     public function submit($name, $text, $id)
     {
-        $this->form .= '<button type="submit" class="btn btn-success" disabled="disabled" name=' . $name . ' id =' . $id . '>' . $text . '</button>';
+        $this->form .= '<button type="submit" class="btn btn-success" name=' . $name . ' id =' . $id . '>' . $text . '</button>';
     }
 
     public function modalSend(){
