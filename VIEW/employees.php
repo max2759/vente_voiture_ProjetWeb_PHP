@@ -1,9 +1,10 @@
 <?php
 
-if(!$_SESSION['isLogged']){
+if(!$_SESSION['isAdmin']){
     header('Location: ../CONTROL/connexion.php');
     exit();
 }
+
 ?>
 
 <div class="container">

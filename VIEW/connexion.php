@@ -1,4 +1,6 @@
 <div class="container login-container">
+    <div class="col-lg-5 login-jumbotron">
+        <div class="jumbotron">
     <?php
 
     $form = new Form("POST", "../CONTROL/loginControl.php", "formNew", "formNew");
@@ -10,4 +12,6 @@
     $form->getForm();
 
     ?>
+        </div>
+    </div>
 </div>

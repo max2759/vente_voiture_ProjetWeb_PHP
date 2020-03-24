@@ -1,6 +1,6 @@
 <?php
 
-if(!$_SESSION['isLogged']){
+if(!$_SESSION['isUser'] & !$_SESSION['isAdmin']){
     header('Location: ../CONTROL/connexion.php');
     exit();
 }

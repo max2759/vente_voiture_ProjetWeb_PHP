@@ -18,3 +18,33 @@
     border: none;
     background-color: transparent;
 }
+
+.login-jumbotron{
+    margin: 0 auto;
+}
+
+.jumbotron{
+    border-radius: 0;
+    margin-top: 20%;
+}
+
+#validateConn {
+    border-radius: 0;
+    width: -webkit-fill-available;
+    width: -moz-available;
+    height: fill-available;
+    margin-top: 20px;
+}
+
+#pseudoLog{
+    border-radius: 0;
+}
+
+#passLog{
+    border-radius: 0;
+}
+
+.alert-danger{
+    margin-top: 3px;
+    border-radius: 0;
+}
