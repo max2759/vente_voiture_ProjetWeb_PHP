@@ -1,6 +1,6 @@
 <?php
-
-if(!$_SESSION['isUser'] & !$_SESSION['isAdmin']){
+error_reporting(0);
+if(!($_SESSION['isUser'] || $_SESSION['isAdmin'])){
     header('Location: ../CONTROL/connexion.php');
     exit();
 }

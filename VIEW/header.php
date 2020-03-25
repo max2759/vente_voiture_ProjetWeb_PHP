@@ -20,7 +20,11 @@ session_start();
     <link rel="icon" href="../VIEW/img/favicon.ico" type="image/x-icon">
 </head>
 <body>
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+
+<?php
+error_reporting(0);
+if(($_SESSION['isUser'] || $_SESSION['isAdmin'])){
+    echo '<nav class="navbar navbar-expand-lg navbar-light bg-light">
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon">
         </span>
@@ -30,17 +34,21 @@ session_start();
         <ul class="navbar-nav mx-auto">
             <li class="nav-item active">
                 <a class="nav-link" href="home.php">Accueil <span class="sr-only">(current)</span></a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="employees.php">Employés</a>
-            </li>
-            <li class="nav-item">
+            </li>';
+
+            if($_SESSION['isAdmin']){
+                echo '<li class="nav-item">
+                      <a class="nav-link" href="employees.php">Employés</a>
+                      </li>';
+            };
+
+            echo '<li class="nav-item">
                 <a class="nav-link" href="cars.php">Voitures</a>
             </li>
         </ul>
     </div>
 
-    <div class="logoutBox">
+    <div class="logoutBox"><span>'.$_SESSION['pseudoLog'].'</span>
         <form method="post" action="../CONTROL/Deconnexion.php">
             <button type="submit" name="Deconnexion" class="btn-logout">
                 <svg class="bi bi-box-arrow-in-right" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -51,4 +59,8 @@ session_start();
             </button>
         </form>
     </div>
-</nav>
+</nav>';
+}
+
+?>
+

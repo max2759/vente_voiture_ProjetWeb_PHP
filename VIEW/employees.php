@@ -5,6 +5,16 @@ if(!$_SESSION['isAdmin']){
     exit();
 }
 
+$form = new Form("POST", "../CONTROL/addUser.php", "formAddUser", "formAddUser");
+
+$form->setText("Nom d'utilisateur", "nompre", "pseudo", "pseudo");
+$form->setText("Nom", "nom", "nom", "nom", "test");
+$form->setText("Prenom", "prenom", "prenom", "prenom", "test");
+$form->setPassword("Mot de passe", "password", "pass", "pass");
+$form->setPassword("Mot de passe", "password", "pass2", "pass2");
+$form->modalSend();
+
+
 ?>
 
 <div class="container">
@@ -32,16 +42,6 @@ if(!$_SESSION['isAdmin']){
                 </div>
                 <div class="modal-body">
                     <?php
-
-                    $form = new Form("POST", "../CONTROL/addUser.php", "formAddUser", "formAddUser");
-
-                    $form->setText("Nom d'utilisateur", "nompre", "pseudo", "pseudo");
-                    $form->setText("Nom", "nom", "nom", "nom", "test");
-                    $form->setText("Prenom", "prenom", "prenom", "prenom", "test");
-                    $form->setPassword("Mot de passe", "password", "pass", "pass");
-                    $form->setPassword("Mot de passe", "password", "pass2", "pass2");
-                    $form->modalSend();
-
                     $form->getForm();
                     ?>
                 </div>
