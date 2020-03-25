@@ -24,14 +24,18 @@ class Form
         $this->form .= '<div class="form-group"><label>' . $label . '</label><input type="password" class="form-control" placeholder=' . $placeHolder . ' name=' . $name . ' id=' . $id . '></div>';
     }
 
+    public function setHidden($name, $id){
+        $this->form .= '<input type="hidden" name="'.$name.'" id="'.$id.'"/>';
+    }
+
     public function submit($name, $text, $id)
     {
         $this->form .= '<button type="submit" class="btn btn-success" name=' . $name . ' id =' . $id . '>' . $text . '</button>';
     }
 
-    public function modalSend(){
+    public function modalSend($name,$id, $disabled){
         $this->form .= '<div class="modal-footer"><button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
-                        <input type="submit" name="validateUser" id="validateUser" class="btn btn-success" disabled="disabled">
+                        <input type="submit" name="'.$name.'" id="'.$id.'" class="btn btn-success" disabled="'. $disabled .'">
                         </div>';
     }
 

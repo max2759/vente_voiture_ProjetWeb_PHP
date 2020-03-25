@@ -8,12 +8,20 @@ if(!$_SESSION['isAdmin']){
 $form = new Form("POST", "../CONTROL/addUser.php", "formAddUser", "formAddUser");
 
 $form->setText("Nom d'utilisateur", "nompre", "pseudo", "pseudo");
-$form->setText("Nom", "nom", "nom", "nom", "test");
-$form->setText("Prenom", "prenom", "prenom", "prenom", "test");
+$form->setText("Nom", "nom", "nom", "nom");
+$form->setText("Prenom", "prenom", "prenom", "prenom");
 $form->setPassword("Mot de passe", "password", "pass", "pass");
 $form->setPassword("Mot de passe", "password", "pass2", "pass2");
-$form->modalSend();
+$form->modalSend("validateUser","validateUser","true");
 
+$updateForm = new Form("POST", "../CONTROL/updateUser.php", "formUpdateUser", "formUpdateUser");
+
+$updateForm->setText("Nom d'utilisateur", "nompre", "pseudoEdit", "pseudoEdit");
+$updateForm->setText("Nom", "nom", "nomEdit", "nomEdit");
+$updateForm->setText("Prenom", "prenom", "prenomEdit", "prenomEdit");
+$updateForm->setPassword("Changer mot de passe", "password", "passEdit", "passEdit");
+$updateForm->setHidden("employee_id", "employee_id");
+$updateForm ->modalSend("validateUpdate","validateUpdate","false");
 
 ?>
 
@@ -30,7 +38,7 @@ $form->modalSend();
     </div>
 
 
-    <!-- Modal -->
+    <!-- Modal addUser-->
     <div class="modal fade" id="modalAddUser" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
@@ -50,7 +58,25 @@ $form->modalSend();
         </div>
     </div>
 
+    <!-- Modal updateUser-->
+    <div class="modal fade" id="modalUpdateUser" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Modifier un utilisateur</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <?php
+                    $updateForm->getForm();
+                    ?>
+                </div>
 
+            </div>
+        </div>
+    </div>
 
 
 
@@ -65,11 +91,11 @@ $form->modalSend();
 
         foreach ($users->data as $k)
         {
-            echo '<tr>';
-            echo '<td>'.$k->name.'</td>';
-            echo '<td>'.$k->firstname.'</td>';
-            echo '<td>'.$k->pseudo.'</td>';
-            echo '<td><button type="button" class="btn btn-warning btn-sm update" id="'.$k->users_ID.'">Modifier</button></td>';
+            echo '<tr id="'.$k->users_ID.'">';
+            echo '<td data-target="name">'.$k->name.'</td>';
+            echo '<td data-target="firstname">'.$k->firstname.'</td>';
+            echo '<td data-target="pseudo">'.$k->pseudo.'</td>';
+            echo '<td><button type="button" class="btn btn-warning btn-sm update"  id="'.$k->users_ID.'">Modifier</button></td>';
             echo '</tr>';
         }
         ?>

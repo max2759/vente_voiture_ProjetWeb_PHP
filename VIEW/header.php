@@ -11,8 +11,8 @@ session_start();
     <script src="../VIEW/js/bootstrap.js"></script>
     <script src="../VIEW/js/inscription.js"></script>
     <script src="../VIEW/js/searchEngine.js"></script>
-    <script src="../VIEW/js/updateUser.js"></script>
     <script src="../VIEW/js/login.js"></script>
+    <script src="../VIEW/js/updateUser.js"></script>
     <link rel="stylesheet" href="../VIEW/css/bootstrap.css">
     <link rel="stylesheet" href="../VIEW/css/bootstrap-grid.css">
     <link rel="stylesheet" href="../VIEW/css/bootstrap-reboot.css">

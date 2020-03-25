@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Mar 17, 2020 at 04:53 PM
+-- Generation Time: Mar 25, 2020 at 04:59 PM
 -- Server version: 5.7.24
 -- PHP Version: 7.2.19
 
@@ -143,9 +143,10 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`users_ID`, `roles_ID`, `name`, `firstname`, `pseudo`, `password`, `isActive`) VALUES
-(6, 2, 'max', 'tet', 'maxzab', '$2y$10$HCJc3iWjrBgeOZ2WCG.py.O/HGAfEntMce5W3yTApH8cCFr/TR.Ke', 1),
 (7, 2, 'test', 'test', 'testes', '$2y$10$zIvRLhjoqsQLX4n8c/1d4.wHpWeY57rNHm505RMvgsV7NOhVpiMV.', 1),
-(11, 2, 'Max', 'Zab', 'maxmax', '$2y$10$jshHtHv2dvzW5qNrFuejQ.9mqu4szeSrYwdCmlW4N/7uPs6Hiz.4q', 1);
+(11, 2, 'Max', 'Zab', 'maxmax', '$2y$10$jshHtHv2dvzW5qNrFuejQ.9mqu4szeSrYwdCmlW4N/7uPs6Hiz.4q', 1),
+(12, 2, 'Eude', 'Jean', 'eudjea', '$2y$10$mS7p9l13IGSXgwCjVO0CvuU8He.LHMkI/MUKtMYayHVG2O/fEu5rW', 1),
+(13, 1, 'Zabbara', 'Maximilien', 'maxzab', '$2y$10$UfvTC3I2hfvFY/oqTGG4wuGDD0ChxjkCeTeYfz2O1y2rEkHEGjYTK', 1);
 
 --
 -- Indexes for dumped tables
@@ -223,7 +224,7 @@ ALTER TABLE `roles`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `users_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `users_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- Constraints for dumped tables
