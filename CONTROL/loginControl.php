@@ -9,7 +9,7 @@
      if(isset($pseudoLog)){
          $users= model::load('users');
          $users->readDB(null, 'pseudo="'.$pseudoLog.'"');
-         if(count($users->data)==1 && $users->data[0]->pseudo==$pseudoLog){
+         if(count($users->data)==1 && $users->data[0]->pseudo==$pseudoLog && $users->data[0]->isActive==1){
             $pwdVerify = password_verify($passLog, $users->data[0]->password);
             if($pwdVerify){
                 if($users->data[0]->roles_ID==1){
@@ -29,7 +29,7 @@
                 echo 'pas le bon mdp';
             }
          }else{
-             echo 'Pas d\'utilisateur avec ce pseudo';
+             echo 'Pas d\'utilisateur avec ce pseudo ou utilisateur désactivé';
          }
      }else{
          echo 'Entrez un nom d\'utilisateur';
