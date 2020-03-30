@@ -12,7 +12,7 @@ $form->setText("Nom", "nom", "nom", "nom");
 $form->setText("Prenom", "prenom", "prenom", "prenom");
 $form->setPassword("Mot de passe", "password", "pass", "pass");
 $form->setPassword("Mot de passe", "password", "pass2", "pass2");
-$form->modalSend("validateUser","validateUser","true");
+$form->modalSend("validateUser","validateUser","disabled");
 
 $updateForm = new Form("POST", "../CONTROL/updateUser.php", "formUpdateUser", "formUpdateUser");
 
@@ -21,20 +21,47 @@ $updateForm->setText("Nom", "nom", "nomEdit", "nomEdit");
 $updateForm->setText("Prenom", "prenom", "prenomEdit", "prenomEdit");
 $updateForm->setPassword("Changer mot de passe", "password", "passEdit", "passEdit");
 $updateForm->setHidden("employee_id", "employee_id");
-$updateForm ->modalSend("validateUpdate","validateUpdate","false");
+$updateForm ->modalSend("validateUpdate","validateUpdate");
 
 ?>
 
 <div class="container">
 
-    <div class="row justify-content-between">
-        <!-- search engine -->
-        <input type="search" name="searchEmpl" id="searchEmpl" placeholder="Rechercher un employé..." class="form-control col-4">
+    <div class="row search-tool">
+        <!--Radio button-->
+        <div class="col-sm-1">
 
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="radioSearch" id="allRadio" value="option1" checked>
+                <label class="form-check-label">
+                    Tous
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="radioSearch" id="actifRadio" value="option2">
+                <label class="form-check-label">
+                    Actif
+                </label>
+            </div>
+
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="radioSearch" id="inactifRadio" value="option3">
+                <label class="form-check-label">
+                    Inactif
+                </label>
+            </div>
+        </div>
+
+        <!-- search engine -->
+        <div class="col-md">
+        <input type="search" name="searchEmpl" id="searchEmpl" placeholder="Rechercher un employé..." class="form-control col-4">
+        </div>
         <!-- Button trigger modal -->
+        <div class="add-box">
         <button type="button" class="btn btn-success col-auto" data-backdrop="static" data-toggle="modal" data-target="#modalAddUser">
             Ajouter
         </button>
+        </div>
     </div>
 
 
@@ -84,18 +111,24 @@ $updateForm ->modalSend("validateUpdate","validateUpdate","false");
         <th scope="col">Nom</th>
         <th scope="col">Prénom</th>
         <th scope="col">Pseudo</th>
+        <th scope="col">Role</th>
         <th scope="col">Modifier</th>
+        <th scope="col">Action</th>
+
         <tbody id="results">
 
         <?php
 
         foreach ($users->data as $k)
         {
-            echo '<tr id="'.$k->users_ID.'">';
-            echo '<td data-target="name">'.$k->name.'</td>';
-            echo '<td data-target="firstname">'.$k->firstname.'</td>';
-            echo '<td data-target="pseudo">'.$k->pseudo.'</td>';
-            echo '<td><button type="button" class="btn btn-warning btn-sm update"  id="'.$k->users_ID.'">Modifier</button></td>';
+            echo '<tr>';
+            echo '<td hidden>'.$k->users_ID.'</td>';
+            echo '<td>'.$k->name.'</td>';
+            echo '<td>'.$k->firstname.'</td>';
+            echo '<td>'.$k->pseudo.'</td>';
+            echo '<td>'.$k->label.'</td>';
+            echo '<td><button type="button" class="btn btn-warning btn-sm update" id="'.$k->users_ID.'">Modifier</button></td>';
+            echo '<td><button type="button" class="btn btn-primary btn-sm" id="testActif">Activer/desactiver</button></td>';
             echo '</tr>';
         }
         ?>

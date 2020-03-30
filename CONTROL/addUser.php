@@ -12,7 +12,6 @@ if(isset($_POST['pseudo']) && isset($_POST['nom']) && isset($_POST['prenom']) &&
     $pass2 = htmlspecialchars($_POST['pass2']);
     $nom = htmlspecialchars($_POST['nom']);
     $prenom = htmlspecialchars($_POST['prenom']);
-    $pseudoLength = strlen($pseudo);
     $pseudoRegEx ="#^[a-z]{3}[a-z]{3}$#" ;
 
     if(preg_match($pseudoRegEx,$pseudo)){

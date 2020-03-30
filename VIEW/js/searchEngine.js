@@ -13,6 +13,30 @@ $(document).ready(function(){
                     $('#results').html(data);
                 }
             });
+        }else{
+           $.ajax({
+               url:"../CONTROL/radioChoice.php",
+               method:"POST",
+               data:{value:'option1'},
+               async:true,
+               success: function(data){
+                   $('#results').html(data);
+               }
+           })
         }
+    })
+
+    $('input[type=radio]').on('click', function(){
+        var value = $(this).val();
+        $('#repChoice').html(value);
+        $.ajax({
+            url: "../CONTROL/radioChoice.php",
+            method: "POST",
+            data:{value: value},
+            async: true,
+            success: function(data){
+                $('#results').html(data);
+            }
+        })
     })
 })

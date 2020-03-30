@@ -48,3 +48,12 @@
     margin-top: 3px;
     border-radius: 0;
 }
+
+.logoutBox {
+    display: flex;
+}
+
+.search-tool{
+    margin-top: 15px;
+    margin-bottom: 15px;
+}

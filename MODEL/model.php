@@ -29,7 +29,7 @@ class model
         // SINON where est vide et innerjoin soit ne l'est pas ou l'est et on appelle notre sql en fonction de ça
         if($where !=''){
             if($innerJoin !=''){
-                $sql = 'SELECT '.$fields. ' FROM '.$this->table.' WHERE '. $where.' INNER JOIN '. $innerJoin;
+                $sql = 'SELECT '.$fields. ' FROM '.$this->table.' INNER JOIN '. $innerJoin.' WHERE '. $where;
             }else{
                 $sql = 'SELECT '.$fields. ' FROM '.$this->table.' WHERE '. $where;
             }

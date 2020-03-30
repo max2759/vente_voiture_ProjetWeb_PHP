@@ -33,9 +33,9 @@ class Form
         $this->form .= '<button type="submit" class="btn btn-success" name=' . $name . ' id =' . $id . '>' . $text . '</button>';
     }
 
-    public function modalSend($name,$id, $disabled){
+    public function modalSend($name,$id, $disabled = NULL){
         $this->form .= '<div class="modal-footer"><button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
-                        <input type="submit" name="'.$name.'" id="'.$id.'" class="btn btn-success" disabled="'. $disabled .'">
+                        <input type="submit" name="'.$name.'" id="'.$id.'" class="btn btn-success"'. $disabled .'>
                         </div>';
     }
 
