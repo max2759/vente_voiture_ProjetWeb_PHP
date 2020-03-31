@@ -7,7 +7,7 @@ $(document).ready(function () {
     var nomPreReg = new RegExp("^[A-Z]+(([',. -][A-Za-zÀ-ÿ])?[A-Za-zÀ-ÿ]*)*$");
 
 
-    $('.update').on('click', function(){
+    $(document).on('click','.update', function(){
 
        $("#modalUpdateUser").modal({backdrop: 'static', keyboard: false, show: true});
 
@@ -49,13 +49,31 @@ $(document).ready(function () {
         }
     })
 
-    $("#formUpdateUser").submit(function(e){
+    passEdit.on('keyup', function(){
         $('.passwordAlert').remove();
-        if(pseudoEdit.val() == "" || nomEdit.val() == "" || prenomEdit.val() =="" || passEdit.val()=="" && $('.passwordAlert').length || $('.nomAlert').length || $('.prenomAlert').length)
-        {
-            $("<div class=\"alert alert-danger passwordAlert\" role=\"alert\">Tous les champs doivent être rempli et au bon format !</div>").insertAfter(passEdit);
-            e.preventDefault();
+        if(passEdit.val() !==""){
+            $('.passwordAlert').hide();
+            passEdit.css("border-color", "#5cb85c");
+        }else{
+            passEdit.css("border-color", "#d9534f");
+            $("<div class=\"alert alert-danger passwordAlert\" role=\"alert\">Le mot de passe est vide !</div>").insertAfter(passEdit);
+
         }
+    })
+
+    $(document).on('submit', '#formUpdateUser', function () {
+        $('.submitAlert').remove();
+
+        if(pseudoEdit.val() == "" || nomEdit.val() == "" || prenomEdit.val() =="" || passEdit.val() =="")
+        {
+            if($('.passwordAlert').length || $('.nomAlert').length || $('.prenomAlert').length){
+
+                $("<div class=\"alert alert-danger submitAlert\" role=\"alert\">Tous les champs doivent être rempli et au bon format !</div>").insertAfter(passEdit);
+                return false;
+            }
+        }
+
+
     })
 
 })

@@ -18,7 +18,7 @@ if(isset($_POST['search'])){
         echo '<td>'.$k->pseudo.'</td>';
         echo '<td>'.$k->label.'</td>';
         echo '<td><button type="button" class="btn btn-warning btn-sm update" id="'.$k->users_ID.'">Modifier</button></td>';
-        echo '<td><button type="button" class="btn btn-primary btn-sm" id="testActif">Activer/desactiver</button></td>';
+        echo '<td><button type="button" class="btn btn-primary btn-sm" id="activation">Activer/desactiver</button></td>';
         echo '</tr>';
     }
 

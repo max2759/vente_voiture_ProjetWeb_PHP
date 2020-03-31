@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Mar 25, 2020 at 04:59 PM
+-- Generation Time: Mar 31, 2020 at 01:27 PM
 -- Server version: 5.7.24
 -- PHP Version: 7.2.19
 
@@ -29,8 +29,8 @@ DELIMITER $$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `addUser` (IN `pFirstname` VARCHAR(100), IN `pName` VARCHAR(100), IN `pPassword` VARCHAR(256), IN `pPseudo` VARCHAR(100))  NO SQL
 insert into users(users_ID,roles_ID,firstname,name,password,pseudo,isActive) VALUES(null, 2, pFirstname, pName, pPassword,pPseudo,1)$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `updateUser` (IN `pFirstname` VARCHAR(250), IN `pName` VARCHAR(250), IN `pPseudo` VARCHAR(250))  NO SQL
-UPDATE users SET firstname = pFirstname, name = pName, pseudo = pPseudo$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `updateUser` (IN `pFirstname` VARCHAR(250), IN `pName` VARCHAR(250), IN `pPassword` VARCHAR(250), IN `pUsersId` INT)  NO SQL
+UPDATE users SET firstname = pFirstname, name = pName, password = pPassword where users_ID = pUsersId$$
 
 DELIMITER ;
 
@@ -143,10 +143,12 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`users_ID`, `roles_ID`, `name`, `firstname`, `pseudo`, `password`, `isActive`) VALUES
-(7, 2, 'test', 'test', 'testes', '$2y$10$zIvRLhjoqsQLX4n8c/1d4.wHpWeY57rNHm505RMvgsV7NOhVpiMV.', 1),
-(11, 2, 'Max', 'Zab', 'maxmax', '$2y$10$jshHtHv2dvzW5qNrFuejQ.9mqu4szeSrYwdCmlW4N/7uPs6Hiz.4q', 1),
-(12, 2, 'Eude', 'Jean', 'eudjea', '$2y$10$mS7p9l13IGSXgwCjVO0CvuU8He.LHMkI/MUKtMYayHVG2O/fEu5rW', 1),
-(13, 1, 'Zabbara', 'Maximilien', 'maxzab', '$2y$10$UfvTC3I2hfvFY/oqTGG4wuGDD0ChxjkCeTeYfz2O1y2rEkHEGjYTK', 1);
+(11, 1, 'Max', 'Zab', 'maxmax', '$2y$10$jshHtHv2dvzW5qNrFuejQ.9mqu4szeSrYwdCmlW4N/7uPs6Hiz.4q', 1),
+(12, 2, 'Eude', 'Jean', 'eudjea', '$2y$10$mS7p9l13IGSXgwCjVO0CvuU8He.LHMkI/MUKtMYayHVG2O/fEu5rW', 0),
+(14, 1, 'Conreur', 'Valentin', 'valcon', '$2y$10$KxxbomRrYCE90mKvGLHXT.Gejf4lm3OhSyQTa89tjVKXrG/wda2Vi', 1),
+(15, 2, 'Wick', 'John', 'wicjoh', '$2y$10$7YZX39MvuQbfaeUodw3hDeSqmDbfZRqL11u1ekoywmKMntTrZ8NIG', 1),
+(16, 2, 'Balboa', 'Rocky', 'balroc', '$2y$10$354o3fn8Lm/BaeeS8hRLhu3iKFMQi.m41gKzLllI3h1xFviC6rdwy', 0),
+(17, 2, 'Smith', 'Morty', 'smimor', '$2y$10$qOCA6Qpc2wSpXAj8sXd7jurn7.VOJLizp3MOUmxERHl.tTEVdnTd.', 1);
 
 --
 -- Indexes for dumped tables
@@ -224,7 +226,7 @@ ALTER TABLE `roles`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `users_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `users_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- Constraints for dumped tables
