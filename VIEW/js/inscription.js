@@ -10,7 +10,7 @@ $(document).ready(function(){
     var pseudoReg = new RegExp("^[a-z]{3}[a-z]{3}$");
     var nomPreReg = new RegExp("^[A-Z]+(([',. -][A-Za-zÀ-ÿ])?[A-Za-zÀ-ÿ]*)*$");
 
-    pseudo.on('blur', function () {
+    pseudo.on('keyup', function () {
         $('.pseudoAlert').remove();
         if(pseudo.val() !== "" && pseudoReg.test(pseudo.val())) {
             var pseudoVal = pseudo.val();
@@ -38,7 +38,7 @@ $(document).ready(function(){
         }
     })
 
-    nom.on('blur', function(){
+    nom.on('keyup', function(){
         $('.nomAlert').remove();
         if(nom.val() !== "" && nomPreReg.test(nom.val())){
             $('.nomAlert').remove();
@@ -49,7 +49,7 @@ $(document).ready(function(){
         }
     })
 
-    prenom.on('blur', function(){
+    prenom.on('keyup', function(){
         $('.prenomAlert').remove();
         if(prenom.val() !== "" && nomPreReg.test(prenom.val())){
             $('.prenomAlert').hide();
@@ -89,6 +89,10 @@ $(document).ready(function(){
             pass.css("border-color", "#d9534f");
             $("<div class=\"alert alert-danger passwordAlert\" role=\"alert\">Entrez un mot de passe!</div>").insertAfter(pass2);
         }
+    })
+
+    validateUser.on('click', function(){
+        validateUser.prop("disabled", false);
     })
 
 })

@@ -17,17 +17,25 @@ $(document).ready(function () {
                return $(this).text();
            }).get();
 
-           $('#employee_id').val(data[0]);
-           $('#nomEdit').val(data[1]);
-           $('#prenomEdit').val(data[2]);
-           $('#pseudoEdit').val(data[3]);
+            employee_id.val(data[0]);
+            nomEdit.val(data[1]);
+            prenomEdit.val(data[2]);
+            pseudoEdit.val(data[3]);
+            passEdit.val("");
 
 
+            passEdit.css("border","1px solid #ced4da");
+            nomEdit.css("border","1px solid #ced4da");
+            prenomEdit.css("border","1px solid #ced4da");
+            $('.inputAlert').remove();
+            $('.passwordAlert').remove();
+            $('.nomAlert').remove();
+            $('.prenomAlert').remove();
    })
 
     pseudoEdit.prop("readonly", true);
 
-    nomEdit.on('blur', function(){
+    nomEdit.on('keyup', function(){
         $('.nomAlert').remove();
         if(nomEdit.val() !== "" && nomPreReg.test(nomEdit.val())){
             $('.nomAlert').remove();
@@ -38,7 +46,7 @@ $(document).ready(function () {
         }
     })
 
-    prenomEdit.on('blur', function(){
+    prenomEdit.on('keyup', function(){
         $('.prenomAlert').remove();
         if(prenomEdit.val() !== "" && nomPreReg.test(prenomEdit.val())){
             $('.prenomAlert').hide();
@@ -49,31 +57,48 @@ $(document).ready(function () {
         }
     })
 
-    passEdit.on('keyup', function(){
+
+    passEdit.on('keyup', function () {
         $('.passwordAlert').remove();
         if(passEdit.val() !==""){
-            $('.passwordAlert').hide();
-            passEdit.css("border-color", "#5cb85c");
-        }else{
-            passEdit.css("border-color", "#d9534f");
-            $("<div class=\"alert alert-danger passwordAlert\" role=\"alert\">Le mot de passe est vide !</div>").insertAfter(passEdit);
-
-        }
+                passEdit.css("border-color", "#5cb85c");
+                $('.passwordAlert').hide();
+                $("#validateUpdate").prop('disabled', false);
+            }else{
+                passEdit.css("border-color", "#d9534f");
+                $("<div class=\"alert alert-danger passwordAlert\" role=\"alert\">Le mot de passe est vide !</div>").insertAfter(passEdit);
+                $("#validateUpdate").prop("disabled", true);
+            }
     })
 
-    $(document).on('submit', '#formUpdateUser', function () {
-        $('.submitAlert').remove();
-
-        if(pseudoEdit.val() == "" || nomEdit.val() == "" || prenomEdit.val() =="" || passEdit.val() =="")
-        {
-            if($('.passwordAlert').length || $('.nomAlert').length || $('.prenomAlert').length){
-
-                $("<div class=\"alert alert-danger submitAlert\" role=\"alert\">Tous les champs doivent être rempli et au bon format !</div>").insertAfter(passEdit);
-                return false;
+    $('input').keyup(function () {
+        $('.inputAlert').remove();
+        if($('.nomAlert').length || $('.prenomAlert').length || $('.passwordAlert').length){
+            passEdit.css("border-color", "#d9534f");
+            $("<div class=\"alert alert-danger inputAlert\" role=\"alert\">Un des champs n'est pas bon !</div>").insertAfter(passEdit);
+            $("#validateUpdate").prop("disabled", true);
+        }else{
+            if(passEdit.val() !=="" || nomEdit.val() !=="" || prenomEdit.val() !==""){
+                if($('.nomAlert').length && $('.prenomAlert').length){
+                    passEdit.css("border-color", "#d9534f");
+                    $("<div class=\"alert alert-danger inputAlert\" role=\"alert\">Un des champs n'est pas bon !</div>").insertAfter(passEdit);
+                    $("#validateUpdate").prop("disabled", true);
+                }else{
+                    passEdit.css("border-color", "#5cb85c");
+                    $('.inputAlert').hide();
+                    $("#validateUpdate").prop('disabled', false);
+                }
+            }else{
+                passEdit.css("border-color", "#d9534f");
+                $("<div class=\"alert alert-danger inputAlert\" role=\"alert\">Un des champs n'est pas rempli !</div>").insertAfter(passEdit);
+                $("#validateUpdate").prop("disabled", true);
             }
         }
-
-
     })
+
+  $("#formUpdateUser").on('hidden.bs.modal', function(){
+
+  })
+
 
 })

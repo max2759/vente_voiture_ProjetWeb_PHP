@@ -21,7 +21,7 @@ $updateForm->setText("Nom", "nom", "nomEdit", "nomEdit");
 $updateForm->setText("Prenom", "prenom", "prenomEdit", "prenomEdit");
 $updateForm->setPassword("Changer mot de passe", "password", "passEdit", "passEdit");
 $updateForm->setHidden("employee_id", "employee_id");
-$updateForm ->modalSend("validateUpdate","validateUpdate");
+$updateForm ->modalSend("validateUpdate","validateUpdate","disabled");
 
 ?>
 
