@@ -96,9 +96,5 @@ $(document).ready(function () {
         }
     })
 
-  $("#formUpdateUser").on('hidden.bs.modal', function(){
-
-  })
-
 
 })
