@@ -1,4 +1,4 @@
-$(document).ready(function(){
+$(document).ready(function () {
 
     var pseudo = $('#pseudo');
     var nom = $('#nom');
@@ -12,7 +12,7 @@ $(document).ready(function(){
 
     pseudo.on('keyup', function () {
         $('.pseudoAlert').remove();
-        if(pseudo.val() !== "" && pseudoReg.test(pseudo.val())) {
+        if (pseudo.val() !== "" && pseudoReg.test(pseudo.val())) {
             var pseudoVal = pseudo.val();
             var bool = true;
             $.ajax({
@@ -26,41 +26,73 @@ $(document).ready(function(){
                     pseudo.css("border-color", "#5cb85c");
                     $('.pseudoAlert').remove();
                     bool = true;
-                }else{
+                } else {
                     pseudo.css("border-color", "#d9534f");
                     $("<div class=\"alert alert-danger pseudoAlert\" role=\"alert\"> L'utilisateur existe déjà !</div>").insertAfter(pseudo);
                     bool = false;
                 }
             })
-        }else{
+        } else {
             $("<div class=\"alert alert-danger pseudoAlert\" role=\"alert\">Le nom d'utilisateur doit être au format nompre avec 3 lettres pour le prénom et 3 pour le nom !</div>").insertAfter(pseudo);
             pseudo.css("border-color", "#d9534f");
         }
     })
 
-    nom.on('keyup', function(){
+    nom.on('keyup', function () {
         $('.nomAlert').remove();
-        if(nom.val() !== "" && nomPreReg.test(nom.val())){
+        if (nom.val() !== "" && nomPreReg.test(nom.val())) {
             $('.nomAlert').remove();
             nom.css("border-color", "#5cb85c");
-        }else{
+        } else {
             $("<div class=\"alert alert-danger nomAlert\" role=\"alert\">Le champ doit être rempli et le nom doit commencer par une majuscule !</div>").insertAfter(nom);
             nom.css("border-color", "#d9534f");
         }
     })
 
-    prenom.on('keyup', function(){
+    prenom.on('keyup', function () {
         $('.prenomAlert').remove();
-        if(prenom.val() !== "" && nomPreReg.test(prenom.val())){
+        if (prenom.val() !== "" && nomPreReg.test(prenom.val())) {
             $('.prenomAlert').hide();
             prenom.css("border-color", "#5cb85c");
-        }else{
+        } else {
             $("<div class=\"alert alert-danger prenomAlert\" role=\"alert\">Le champ doit être rempli et le prénom doit commencer par une majuscule !</div>").insertAfter(prenom);
             prenom.css("border-color", "#d9534f");
         }
     })
 
-    allPass.on('keyup', function(){
+    allPass.on('keyup', function () {
+        $('.passwordAlert').remove();
+        if (pass.val() != "" && pass2.val() != "") {
+            if (pass.val() == pass2.val()) {
+                allPass.css("border-color", "#5cb85c");
+                $('.passwordAlert').hidden();
+            } else {
+                allPass.css("border-color", "#d9534f");
+                $("<div class=\"alert alert-danger passwordAlert\" role=\"alert\">Les mots de passe ne correspondent pas !</div>").insertAfter(pass2);
+            }
+
+        } else {
+            allPass.css("border-color", "#d9534f");
+            $("<div class=\"alert alert-danger passwordAlert\" role=\"alert\">Entrez un mot de passe!</div>").insertAfter(pass2);
+        }
+    })
+
+    $('input').keyup(function () {
+        $('.inputAddAlert').remove();
+        if ($('.pseudoAlert').length || $('.nomAlert').length || $('.prenomAlert').length || $('.passwordAlert').length) {
+            $("<div class=\"alert alert-danger inputAddAlert\" role=\"alert\">Un des champs n'est pas bon !</div>").insertAfter(passEdit);
+            validateUser.prop("disabled", true);
+        } else {
+            if (pseudo.val() !== "" || nom.val() !== "" || prenom.val() !== "" || pass.val() !== "" || pass2.val() !== "") {
+                validateUser.prop("disabled", false);
+            } else {
+                $("<div class=\"alert alert-danger inputAddAlert\" role=\"alert\">Un des champs n'est pas rempli !</div>").insertAfter(passEdit);
+                validateUser.prop("disabled", true);
+            }
+        }
+    })
+
+    /*allPass.on('keyup', function(){
         $('.passwordAlert').remove();
         if(pass.val() !="" && pass2.val() !=""){
             if(pseudo.val() !== "" || nom.val() !== "" || prenom.val() !==""){
@@ -89,11 +121,8 @@ $(document).ready(function(){
             pass.css("border-color", "#d9534f");
             $("<div class=\"alert alert-danger passwordAlert\" role=\"alert\">Entrez un mot de passe!</div>").insertAfter(pass2);
         }
-    })
+    })*/
 
-    validateUser.on('click', function(){
-        validateUser.prop("disabled", false);
-    })
 
 })
 
