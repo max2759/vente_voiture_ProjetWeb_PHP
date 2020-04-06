@@ -12,7 +12,6 @@ if(isset($_POST['search'])){
     foreach ($users->data as $k)
     {
         echo '<tr>';
-        echo '<tr>';
         if($k->isActive == 1){
             echo '<td><span class="dot-success"></span></td>';
         }else{
@@ -23,8 +22,16 @@ if(isset($_POST['search'])){
         echo '<td>'.$k->firstname.'</td>';
         echo '<td>'.$k->pseudo.'</td>';
         echo '<td>'.$k->label.'</td>';
-        echo '<td><button type="button" class="btn btn-warning btn-sm update" id="'.$k->users_ID.'">Modifier</button></td>';
-        echo '<td><button type="button" class="btn btn-primary btn-sm" id="activation">Activer/desactiver</button></td>';
+        if($k->isActive == 1){
+            echo '<td><button type="button" class="btn btn-warning btn-sm update" id="user-'.$k->users_ID.'">Modifier</button></td>';
+        }else{
+            echo '<td><button type="button" class="btn btn-warning btn-sm update" id="user-'.$k->users_ID.'" disabled>Modifier</button></td>';
+        }
+        if($k->isActive == 1){
+            echo '<td><button type="button" class="btn btn-danger btn-sm" id="activation">Désactiver</button></td>';
+        }else{
+            echo '<td><button type="button" class="btn btn-success btn-sm" id="activation">Activer</button></td>';
+        }
         echo '</tr>';
     }
 

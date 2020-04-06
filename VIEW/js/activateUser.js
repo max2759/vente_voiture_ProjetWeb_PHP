@@ -10,17 +10,14 @@ $(document).ready(function () {
 
             var row_ID = data[1];
 
+
             $.ajax({
                 url:"../CONTROL/userActivation.php",
                 method: "POST",
                 data:{row_ID:row_ID},
                 async: true,
                 success: function(data){
-                    if(data === 'activated'){
-                        location.reload();
-                    }else{
-                       location.reload();
-                    }
+                    location.reload();
                 }
             })
 
