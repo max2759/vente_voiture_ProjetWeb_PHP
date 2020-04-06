@@ -4,6 +4,7 @@ $(document).ready(function () {
     var prenomEdit = $('#prenomEdit');
     var passEdit = $("#passEdit");
     var employee_id = $("#employee_id");
+    var pseudoReg = new RegExp("^[a-z]{3}[a-z]{3}$");
     var nomPreReg = new RegExp("^[A-Z]+(([',. -][A-Za-zÀ-ÿ])?[A-Za-zÀ-ÿ]*)*$");
 
 
@@ -17,10 +18,10 @@ $(document).ready(function () {
             return $(this).text();
         }).get();
 
-        employee_id.val(data[0]);
-        nomEdit.val(data[1]);
-        prenomEdit.val(data[2]);
-        pseudoEdit.val(data[3]);
+        employee_id.val(data[1]);
+        nomEdit.val(data[2]);
+        prenomEdit.val(data[3]);
+        pseudoEdit.val(data[4]);
         passEdit.val("");
 
 
@@ -34,7 +35,8 @@ $(document).ready(function () {
         $('.prenomEditAlert').remove();
     })
 
-    pseudoEdit.prop("readonly", true);
+
+   pseudoEdit.prop("readonly", true);
 
     nomEdit.on('keyup', function () {
         $('.nomEditAlert').remove();
@@ -64,31 +66,30 @@ $(document).ready(function () {
         if (passEdit.val() !== "") {
             passEdit.css("border-color", "#5cb85c");
             $('.passwordEditAlert').hide();
-            $("#validateUpdate").prop('disabled', false);
         } else {
             passEdit.css("border-color", "#d9534f");
             $("<div class=\"alert alert-danger passwordEditAlert\" role=\"alert\">Le mot de passe est vide !</div>").insertAfter(passEdit);
-            $("#validateUpdate").prop("disabled", true);
         }
     })
 
     $('input').keyup(function () {
-        $('.inputEditAlert').remove();
-        $('.inputAddAlert').remove();
-        if ($('.nomEditAlert').length || $('.prenomEditAlert').length || $('.passwordEditAlert').length) {
-            $("<div class=\"alert alert-danger inputEditAlert\" role=\"alert\">Un des champs n'est pas bon !</div>").insertAfter(passEdit);
-            $("#validateUpdate").prop("disabled", true);
-        } else {
-            if (passEdit.val() !== "" || nomEdit.val() !== "" || prenomEdit.val() !== "") {
-                passEdit.css("border-color", "#5cb85c");
+
+        if(passEdit.val() !== "" && nomEdit.val() !== "" && prenomEdit.val() !== ""  && pseudoEdit.val() !==""){
+            if(!($('.nomEditAlert').length) && !($('.prenomEditAlert').length) && !($('.passwordEditAlert').length)){
                 $("#validateUpdate").prop("disabled", false);
-                $('.inputEditAlert').hide();
-            } else {
-                $("<div class=\"alert alert-danger inputEditAlert\" role=\"alert\">Un des champs n'est pas bon !</div>").insertAfter(passEdit);
+            }else{
                 $("#validateUpdate").prop('disabled', true);
             }
-        }
-    })
 
+        }else{
+            if($('.nomEditAlert').length && $('.prenomEditAlert').length && $('.passwordEditAlert').length){
+                $("#validateUpdate").prop('disabled', true);
+            }else{
+                $("#validateUpdate").prop("disabled", true);
+            }
+        }
+
+
+    })
 
 })

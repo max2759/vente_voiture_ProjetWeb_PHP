@@ -9,11 +9,17 @@ $users = model::load("users");
 
 if($value == 'option1'){
 
-    $users->readDB('u.users_ID, u.name, u.firstname, u.pseudo, r.label','', 'roles r on r.roles_ID = u.roles_ID');
+    $users->readDB('u.users_ID, u.name, u.firstname, u.pseudo, r.label, u.isActive','', 'roles r on r.roles_ID = u.roles_ID');
 
     foreach ($users->data as $k)
     {
         echo '<tr>';
+        echo '<tr>';
+        if($k->isActive == 1){
+            echo '<td><span class="dot-success"></span></td>';
+        }else{
+            echo '<td><span class="dot-danger"></span></td>';
+        }
         echo '<td hidden>'.$k->users_ID.'</td>';
         echo '<td>'.$k->name.'</td>';
         echo '<td>'.$k->firstname.'</td>';
@@ -30,6 +36,8 @@ if($value == 'option1'){
     foreach ($users->data as $k)
     {
         echo '<tr>';
+
+        echo '<td><span class="dot-success"></span></td>';
         echo '<td hidden>'.$k->users_ID.'</td>';
         echo '<td>'.$k->name.'</td>';
         echo '<td>'.$k->firstname.'</td>';
@@ -46,6 +54,11 @@ if($value == 'option1'){
     foreach ($users->data as $k)
     {
         echo '<tr>';
+        if($k->isActive == 1){
+            echo '<td><span class="dot-success"></span></td>';
+        }else{
+            echo '<td><span class="dot-danger"></span></td>';
+        }
         echo '<td hidden>'.$k->users_ID.'</td>';
         echo '<td>'.$k->name.'</td>';
         echo '<td>'.$k->firstname.'</td>';

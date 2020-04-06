@@ -15,12 +15,19 @@ class users extends model
         $req->execute();
     }
 
-    function updateUser($firstname, $name, $password, $usersID){
-        $req = $this->stmt->prepare('CALL updateUser(:pFirstname, pName, pPassword, pUsersID)');
-        $req->bindParam(':pFirstname', $firstname, PDO::PARAM_STR, 100);
-        $req->bindParam(':pName', $name, PDO::PARAM_STR, 100);
-        $req->bindParam(':pPassword', $password, PDO::PARAM_STR, 100);
-        $req->bindParam(':pUsersID', $usersID,PDO::PARAM_INT);
+    function updateUser($name, $firstname, $userID){
+        $req = $this->stmt->prepare('CALL updateUser(:pName, :pFirstname, :pUserID)');
+        $req->bindParam(':pName', $name, PDO::PARAM_STR, 255);
+        $req->bindParam(':pFirstname', $firstname, PDO::PARAM_STR, 255);
+        /*$req->bindParam(':pPassword', $password, PDO::PARAM_STR, 100);*/
+        $req->bindParam(':pUserID', $userID,PDO::PARAM_INT);
+        $req->execute();
+    }
+
+    function userActivation($isActive, $userID){
+        $req = $this->stmt->prepare('CALL userActivation(:pIsActive, :pUserID)');
+        $req->bindParam(':pIsActive', $isActive,PDO::PARAM_BOOL);
+        $req->bindParam(':pUserID', $userID,PDO::PARAM_INT);
         $req->execute();
     }
 }

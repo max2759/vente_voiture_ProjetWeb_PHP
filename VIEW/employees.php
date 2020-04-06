@@ -108,6 +108,8 @@ $updateForm ->modalSend("validateUpdate","validateUpdate","disabled");
 
 
     <table class="table table-hover">
+
+        <th scope="col">Statut</th>
         <th scope="col">Nom</th>
         <th scope="col">Prénom</th>
         <th scope="col">Pseudo</th>
@@ -122,6 +124,11 @@ $updateForm ->modalSend("validateUpdate","validateUpdate","disabled");
         foreach ($users->data as $k)
         {
             echo '<tr>';
+            if($k->isActive == 1){
+                echo '<td><span class="dot-success"></span></td>';
+            }else{
+                echo '<td><span class="dot-danger"></span></td>';
+            }
             echo '<td hidden>'.$k->users_ID.'</td>';
             echo '<td>'.$k->name.'</td>';
             echo '<td>'.$k->firstname.'</td>';

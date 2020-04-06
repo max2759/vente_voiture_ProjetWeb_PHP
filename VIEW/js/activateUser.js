@@ -8,10 +8,22 @@ $(document).ready(function () {
                 return $(this).text();
             }).get();
 
-            var row_ID = data[0];
+            var row_ID = data[1];
 
-            alert(row_ID);
+            $.ajax({
+                url:"../CONTROL/userActivation.php",
+                method: "POST",
+                data:{row_ID:row_ID},
+                async: true,
+                success: function(data){
+                    if(data === 'activated'){
+                        location.reload();
+                    }else{
+                       location.reload();
+                    }
+                }
+            })
 
         })
 
-})
+});

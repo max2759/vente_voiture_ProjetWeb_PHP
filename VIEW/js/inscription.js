@@ -62,7 +62,7 @@ $(document).ready(function () {
 
     allPass.on('keyup', function () {
         $('.passwordAlert').remove();
-        if (pass.val() != "" && pass2.val() != "") {
+        if (pass.val() !== "" && pass2.val() !== "") {
             if (pass.val() == pass2.val()) {
                 allPass.css("border-color", "#5cb85c");
                 $('.passwordAlert').hidden();
@@ -78,15 +78,17 @@ $(document).ready(function () {
     })
 
     $('input').keyup(function () {
-        $('.inputAddAlert').remove();
-        if ($('.pseudoAlert').length || $('.nomAlert').length || $('.prenomAlert').length || $('.passwordAlert').length) {
-            $("<div class=\"alert alert-danger inputAddAlert\" role=\"alert\">Un des champs n'est pas bon !</div>").insertAfter(passEdit);
-            validateUser.prop("disabled", true);
-        } else {
-            if (pseudo.val() !== "" || nom.val() !== "" || prenom.val() !== "" || pass.val() !== "" || pass2.val() !== "") {
+
+        if(pseudo.val() !=="" && nom.val() !=="" && prenom.val() !=="" && pseudo.val() !=="" && pass.val() !=="" && pass2.val() !=="" ){
+            if(!($('.nomAlert').length) && !($('.pseudoAlert').length) && !($('.passwordAlert').length) &&  !($('.prenomAlert').length)){
                 validateUser.prop("disabled", false);
-            } else {
-                $("<div class=\"alert alert-danger inputAddAlert\" role=\"alert\">Un des champs n'est pas rempli !</div>").insertAfter(passEdit);
+            }else{
+                validateUser.prop("disabled", true);
+            }
+        }else{
+            if($('.nomAlert').length && $('.pseudoAlert').length && $('.passwordAlert').length && $('.prenomAlert').length){
+                validateUser.prop("disabled", true);
+            }else{
                 validateUser.prop("disabled", true);
             }
         }
