@@ -1,12 +1,14 @@
 <?php
  require_once('core.php');
+ini_set('display_errors', 1);
+error_reporting(E_ALL);
 
  if(isset($_POST['validateConn'])){
 
      $pseudoLog = htmlspecialchars($_POST['pseudoLog']);
      $passLog = htmlspecialchars($_POST['passLog']);
 
-     if(isset($pseudoLog)){
+     if(isset($pseudoLog) && isset($passLog) && !empty($pseudoLog) && !empty($passLog)){
          $users= model::load('users');
          $users->readDB(null, 'pseudo="'.$pseudoLog.'"');
          if(count($users->data)==1 && $users->data[0]->pseudo==$pseudoLog && $users->data[0]->isActive==1){
@@ -26,12 +28,21 @@
                 }
 
             }else{
-                echo 'pas le bon mdp';
+                session_start();
+                $_SESSION['errors'] = "Mot de passe incorrect";
+                header("Location: ../CONTROL/connexion.php");
+                exit();
             }
          }else{
-             echo 'Pas d\'utilisateur avec ce pseudo ou utilisateur désactivé';
+             session_start();
+             $_SESSION['errors'] = "Utilisateur inexistant ou désactivé";
+             header("Location: ../CONTROL/connexion.php");
+             exit();
          }
      }else{
-         echo 'Entrez un nom d\'utilisateur';
+         session_start();
+         $_SESSION['errors'] = "Veuillez entrer un nom d'utilisateur et un mot de passe";
+         header("Location: ../CONTROL/connexion.php");
+         exit();
      }
  }

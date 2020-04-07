@@ -1,5 +1,11 @@
 <?php
 session_start();
+
+$changePasswordForm = new Form("POST", "#", "userChangePassword", "userChangePassword");
+$changePasswordForm->setText("Ancien mot de passe", "ancien&nbsp;mot&nbsp;de&nbsp;passe", "oldPass", "oldPass");
+$changePasswordForm->setPassword("Nouveau mot de passe", "nouveau&nbsp;mot&nbsp;de&nbsp;passe", "newPass", "newPass");
+$changePasswordForm->setPassword("Répéter nouveau mot de passe", "répéter&nbsp;mot&nbsp;de&nbsp;passe", "newPass2", "newPass2");
+$changePasswordForm->modalSend("validateChangePassword","validateChangePassword","disabled");
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -11,9 +17,9 @@ session_start();
     <script src="../VIEW/js/bootstrap.js"></script>
     <script src="../VIEW/js/inscription.js"></script>
     <script src="../VIEW/js/searchEngine.js"></script>
-    <script src="../VIEW/js/login.js"></script>
     <script src="../VIEW/js/updateUser.js"></script>
     <script src="../VIEW/js/activateUser.js"></script>
+    <script src="../VIEW/js/changePassword.js"></script>
     <link rel="stylesheet" href="../VIEW/css/bootstrap.css">
     <link rel="stylesheet" href="../VIEW/css/bootstrap-grid.css">
     <link rel="stylesheet" href="../VIEW/css/bootstrap-reboot.css">
@@ -24,7 +30,7 @@ session_start();
 
 <?php
 
-if(isset($_SESSION['isUser']) || isset($_SESSION['isAdmin'])){
+if (isset($_SESSION['isUser']) || isset($_SESSION['isAdmin'])) {
     echo '<nav class="navbar navbar-expand-lg navbar-light bg-light">
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon">
@@ -37,19 +43,27 @@ if(isset($_SESSION['isUser']) || isset($_SESSION['isAdmin'])){
                 <a class="nav-link" href="home.php">Accueil <span class="sr-only">(current)</span></a>
             </li>';
 
-            if(isset($_SESSION['isAdmin'])){
-                echo '<li class="nav-item">
+    if (isset($_SESSION['isAdmin'])) {
+        echo '<li class="nav-item">
                       <a class="nav-link" href="employees.php">Employés</a>
                       </li>';
-            };
+    };
 
-            echo '<li class="nav-item">
+    echo '<li class="nav-item">
                 <a class="nav-link" href="cars.php">Voitures</a>
             </li>
         </ul>
     </div>
 
-    <div class="logoutBox"><span>'.$_SESSION['pseudoLog'].'</span>
+    <div class="logoutBox"><span>' . $_SESSION['pseudoLog'] . '</span>
+    <div class="modify-clog">
+    <button type="button" class="modal-clog">
+        <svg class="bi bi-gear" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+        <path fill-rule="evenodd" d="M8.837 1.626c-.246-.835-1.428-.835-1.674 0l-.094.319A1.873 1.873 0 014.377 3.06l-.292-.16c-.764-.415-1.6.42-1.184 1.185l.159.292a1.873 1.873 0 01-1.115 2.692l-.319.094c-.835.246-.835 1.428 0 1.674l.319.094a1.873 1.873 0 011.115 2.693l-.16.291c-.415.764.42 1.6 1.185 1.184l.292-.159a1.873 1.873 0 012.692 1.116l.094.318c.246.835 1.428.835 1.674 0l.094-.319a1.873 1.873 0 012.693-1.115l.291.16c.764.415 1.6-.42 1.184-1.185l-.159-.291a1.873 1.873 0 011.116-2.693l.318-.094c.835-.246.835-1.428 0-1.674l-.319-.094a1.873 1.873 0 01-1.115-2.692l.16-.292c.415-.764-.42-1.6-1.185-1.184l-.291.159A1.873 1.873 0 018.93 1.945l-.094-.319zm-2.633-.283c.527-1.79 3.065-1.79 3.592 0l.094.319a.873.873 0 001.255.52l.292-.16c1.64-.892 3.434.901 2.54 2.541l-.159.292a.873.873 0 00.52 1.255l.319.094c1.79.527 1.79 3.065 0 3.592l-.319.094a.873.873 0 00-.52 1.255l.16.292c.893 1.64-.902 3.434-2.541 2.54l-.292-.159a.873.873 0 00-1.255.52l-.094.319c-.527 1.79-3.065 1.79-3.592 0l-.094-.319a.873.873 0 00-1.255-.52l-.292.16c-1.64.893-3.433-.902-2.54-2.541l.159-.292a.873.873 0 00-.52-1.255l-.319-.094c-1.79-.527-1.79-3.065 0-3.592l.319-.094a.873.873 0 00.52-1.255l-.16-.292c-.892-1.64.902-3.433 2.541-2.54l.292.159a.873.873 0 001.255-.52l.094-.319z" clip-rule="evenodd"/>
+        <path fill-rule="evenodd" d="M8 5.754a2.246 2.246 0 100 4.492 2.246 2.246 0 000-4.492zM4.754 8a3.246 3.246 0 116.492 0 3.246 3.246 0 01-6.492 0z" clip-rule="evenodd"/>
+        </svg>
+     </button>
+     </div>
         <form method="post" action="../CONTROL/Deconnexion.php">
             <button type="submit" name="Deconnexion" class="btn-logout">
                 <svg class="bi bi-box-arrow-in-right" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -59,8 +73,30 @@ if(isset($_SESSION['isUser']) || isset($_SESSION['isAdmin'])){
                 </svg>
             </button>
         </form>
+    </div>';
+    ?>
+    
+        <div class="modal fade" id="modalChangePassword" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Modifier mot de passe</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <?php
+                    $changePasswordForm->getForm();
+                    ?>
+                </div>
+
+            </div>
+        </div>
     </div>
-</nav>';
+<?php
+echo '</nav>';
+
 }
 
 ?>

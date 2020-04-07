@@ -65,7 +65,7 @@ $(document).ready(function () {
         if (pass.val() !== "" && pass2.val() !== "") {
             if (pass.val() == pass2.val()) {
                 allPass.css("border-color", "#5cb85c");
-                $('.passwordAlert').hidden();
+                $('.passwordAlert').hide();
             } else {
                 allPass.css("border-color", "#d9534f");
                 $("<div class=\"alert alert-danger passwordAlert\" role=\"alert\">Les mots de passe ne correspondent pas !</div>").insertAfter(pass2);

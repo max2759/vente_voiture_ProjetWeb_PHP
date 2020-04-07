@@ -73,3 +73,12 @@
     border-radius: 50%;
     display: inline-block;
 }
+
+.modify-clog {
+    margin-left: 5px;
+}
+
+.modal-clog{
+    border: none;
+    background-color: transparent;
+}

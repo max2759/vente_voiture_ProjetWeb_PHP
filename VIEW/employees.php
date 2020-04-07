@@ -9,9 +9,9 @@ $form = new Form("POST", "../CONTROL/addUser.php", "formAddUser", "formAddUser")
 
 $form->setText("Nom d'utilisateur", "nompre", "pseudo", "pseudo");
 $form->setText("Nom", "nom", "nom", "nom");
-$form->setText("Prenom", "prenom", "prenom", "prenom");
-$form->setPassword("Mot de passe", "password", "pass", "pass");
-$form->setPassword("Mot de passe", "password", "pass2", "pass2");
+$form->setText("Prenom", "prénom", "prenom", "prenom");
+$form->setPassword("Mot de passe", "mot&nbsp;de&nbsp;passe", "pass", "pass");
+$form->setPassword("Répéter mot de passe", "mot&nbsp;de&nbsp;passe", "pass2", "pass2");
 $form->modalSend("validateUser","validateUser","disabled");
 
 $updateForm = new Form("POST", "../CONTROL/updateUser.php", "formUpdateUser", "formUpdateUser");
@@ -19,7 +19,7 @@ $updateForm = new Form("POST", "../CONTROL/updateUser.php", "formUpdateUser", "f
 $updateForm->setText("Nom d'utilisateur", "nompre", "pseudoEdit", "pseudoEdit");
 $updateForm->setText("Nom", "nom", "nomEdit", "nomEdit");
 $updateForm->setText("Prenom", "prenom", "prenomEdit", "prenomEdit");
-$updateForm->setPassword("Changer mot de passe", "password", "passEdit", "passEdit");
+$updateForm->setPassword("Changer mot de passe", "mot&nbsp;de&nbsp;passe", "passEdit", "passEdit");
 $updateForm->setHidden("employee_id", "employee_id");
 $updateForm ->modalSend("validateUpdate","validateUpdate","disabled");
 
@@ -58,7 +58,7 @@ $updateForm ->modalSend("validateUpdate","validateUpdate","disabled");
         </div>
         <!-- Button trigger modal -->
         <div class="add-box">
-        <button type="button" class="btn btn-success col-auto" data-backdrop="static" data-toggle="modal" data-target="#modalAddUser">
+        <button type="button" class="btn btn-info col-auto" data-backdrop="static" data-toggle="modal" data-target="#modalAddUser">
             Ajouter
         </button>
         </div>
