@@ -20,6 +20,7 @@ if(isset($oldPass) && isset($newPass) && isset($newPass2) && isset($pseudo) && !
                 if($newPass == $newPass2){
                     $passHash = password_hash($newPass, PASSWORD_DEFAULT);
                     $users->updatePassword($passHash, $pseudo);
+                    session_start();
                     $_SESSION['successpwd'] = "mot de passe modifié !";
                     header('location: '.$_SERVER['PHP_SELF']);
                     exit();
