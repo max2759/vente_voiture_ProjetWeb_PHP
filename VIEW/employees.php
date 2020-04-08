@@ -20,12 +20,20 @@ $updateForm->setText("Nom d'utilisateur", "nompre", "pseudoEdit", "pseudoEdit");
 $updateForm->setText("Nom", "nom", "nomEdit", "nomEdit");
 $updateForm->setText("Prenom", "prenom", "prenomEdit", "prenomEdit");
 $updateForm->setPassword("Changer mot de passe", "mot&nbsp;de&nbsp;passe", "passEdit", "passEdit");
-$updateForm->setHidden("employee_id", "employee_id");
+$updateForm->setHidden("employee_id", "employee_id", "");
 $updateForm ->modalSend("validateUpdate","validateUpdate","disabled");
 
 ?>
 
 <div class="container">
+
+    <?php
+    if (isset($_SESSION['errors'])) {
+        $msg = $_SESSION['errors'];
+        echo '<div class="alert alert-danger">' . $msg . '</div>';
+        unset($_SESSION['errors']);
+    }
+    ?>
 
     <div class="row search-tool">
         <!--Radio button-->

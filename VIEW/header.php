@@ -1,12 +1,18 @@
 <?php
 session_start();
 
-$changePasswordForm = new Form("POST", "#", "userChangePassword", "userChangePassword");
-$changePasswordForm->setText("Ancien mot de passe", "ancien&nbsp;mot&nbsp;de&nbsp;passe", "oldPass", "oldPass");
-$changePasswordForm->setPassword("Nouveau mot de passe", "nouveau&nbsp;mot&nbsp;de&nbsp;passe", "newPass", "newPass");
-$changePasswordForm->setPassword("Répéter nouveau mot de passe", "répéter&nbsp;mot&nbsp;de&nbsp;passe", "newPass2", "newPass2");
-$changePasswordForm->modalSend("validateChangePassword","validateChangePassword","disabled");
+if(isset($_SESSION['isUser']) || isset($_SESSION['isAdmin'])){
+    $user = $_SESSION['pseudoLog'];
+    $changePasswordForm = new Form("POST", "../CONTROL/changeUserPassword.php", "userChangePassword", "userChangePassword");
+    $changePasswordForm->setText("Ancien mot de passe", "ancien&nbsp;mot&nbsp;de&nbsp;passe", "oldPass", "oldPass");
+    $changePasswordForm->setPassword("Nouveau mot de passe", "nouveau&nbsp;mot&nbsp;de&nbsp;passe", "newPass", "newPass");
+    $changePasswordForm->setPassword("Répéter nouveau mot de passe", "répéter&nbsp;mot&nbsp;de&nbsp;passe", "newPass2", "newPass2");
+    $changePasswordForm->setHidden("employeePseudo", "employeePseudo", "$user");
+    $changePasswordForm->modalSend("validateChangePassword","validateChangePassword","disabled");
+}
+
 ?>
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>

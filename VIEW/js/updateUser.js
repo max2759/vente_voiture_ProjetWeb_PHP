@@ -4,7 +4,6 @@ $(document).ready(function () {
     var prenomEdit = $('#prenomEdit');
     var passEdit = $("#passEdit");
     var employee_id = $("#employee_id");
-    var pseudoReg = new RegExp("^[a-z]{3}[a-z]{3}$");
     var nomPreReg = new RegExp("^[A-Z]+(([',. -][A-Za-zÀ-ÿ])?[A-Za-zÀ-ÿ]*)*$");
 
 

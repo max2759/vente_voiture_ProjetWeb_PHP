@@ -24,8 +24,8 @@ class Form
         $this->form .= '<div class="form-group"><label>' . $label . '</label><input type="password" class="form-control" placeholder=' . $placeHolder . ' name=' . $name . ' id=' . $id . '></div>';
     }
 
-    public function setHidden($name, $id){
-        $this->form .= '<input type="hidden" name="'.$name.'" id="'.$id.'"/>';
+    public function setHidden($name, $id, $value){
+        $this->form .= '<input type="hidden" name="'.$name.'" id="'.$id.'" value="'.$value.'"/>';
     }
 
     public function submit($name, $text, $id)
@@ -35,7 +35,7 @@ class Form
 
     public function modalSend($name,$id, $disabled = NULL){
         $this->form .= '<div class="modal-footer"><button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
-                        <input type="submit" name="'.$name.'" id="'.$id.'" class="btn btn-success"'. $disabled .'>
+                        <input type="submit" name="'.$name.'" id="'.$id.'" class="btn btn-success" '. $disabled .'>
                         </div>';
     }
 

@@ -61,14 +61,23 @@ $(document).ready(function () {
     })
 
     allPass.on('keyup', function () {
+
         $('.passwordAlert').remove();
-        if (pass.val() !== "" && pass2.val() !== "") {
-            if (pass.val() == pass2.val()) {
-                allPass.css("border-color", "#5cb85c");
-                $('.passwordAlert').hide();
-            } else {
+        var passval = pass.val();
+        var pass2val = pass2.val();
+
+        if (passval !== "" && pass2val !== "") {
+            if(passval.length >= 4 && pass2val.length >= 4){
+                if (passval === pass2val) {
+                    allPass.css("border-color", "#5cb85c");
+                    $('.passwordAlert').hide();
+                } else {
+                    allPass.css("border-color", "#d9534f");
+                    $("<div class=\"alert alert-danger passwordAlert\" role=\"alert\">Les mots de passe ne correspondent pas !</div>").insertAfter(pass2);
+                }
+            }else{
                 allPass.css("border-color", "#d9534f");
-                $("<div class=\"alert alert-danger passwordAlert\" role=\"alert\">Les mots de passe ne correspondent pas !</div>").insertAfter(pass2);
+                $("<div class=\"alert alert-danger passwordAlert\" role=\"alert\">Le mot de passe doit contenir au moins 4 caractères !</div>").insertAfter(pass2);
             }
 
         } else {
@@ -79,8 +88,8 @@ $(document).ready(function () {
 
     $('input').keyup(function () {
 
-        if(pseudo.val() !=="" && nom.val() !=="" && prenom.val() !=="" && pseudo.val() !=="" && pass.val() !=="" && pass2.val() !=="" ){
-            if(!($('.nomAlert').length) && !($('.pseudoAlert').length) && !($('.passwordAlert').length) &&  !($('.prenomAlert').length)){
+        if(pseudo.val() !=="" && nom.val() !=="" && prenom.val() !=="" && pass.val() !=="" && pass2.val() !=="" ){
+            if(!($('.nomAlert').length) && !($('.pseudoAlert').length) && !($('.passwordAlert').length) && !($('.prenomAlert').length)){
                 validateUser.prop("disabled", false);
             }else{
                 validateUser.prop("disabled", true);

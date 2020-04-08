@@ -18,7 +18,6 @@ error_reporting(E_ALL);
                     session_start();
                     $_SESSION['pseudoLog'] = $pseudoLog;
                     $_SESSION['isAdmin'] = true;
-
                     header('location: ../CONTROL/home.php');
                 }else{
                     session_start();
@@ -26,7 +25,6 @@ error_reporting(E_ALL);
                     $_SESSION['isUser'] = true;
                     header('location: ../CONTROL/home.php');
                 }
-
             }else{
                 session_start();
                 $_SESSION['errors'] = "Mot de passe incorrect";
