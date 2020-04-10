@@ -83,3 +83,7 @@
     background-color: transparent;
 }
 
+input[type=search] {
+    margin: auto;
+}
+

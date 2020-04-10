@@ -6,6 +6,7 @@ class model
     protected $stmt;
     protected $table = '';
 
+    // Connexion à la DB
     public function __construct()
     {
         try {
@@ -19,6 +20,7 @@ class model
         }
     }
 
+    // Permet de faire des requêtes à la DB
     public function readDB($fields = NULL, $where ='', $innerJoin = ''){
 
         //SI le champs fields est NULL, alors ce sera un select * from table

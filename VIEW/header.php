@@ -36,7 +36,7 @@ if(isset($_SESSION['isUser']) || isset($_SESSION['isAdmin'])){
 
 <?php
 
-if (isset($_SESSION['isUser']) || isset($_SESSION['isAdmin'])) {
+if(isset($_SESSION['isUser']) || isset($_SESSION['isAdmin'])) {
     echo '<nav class="navbar navbar-expand-lg navbar-light bg-light">
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon">
@@ -49,7 +49,7 @@ if (isset($_SESSION['isUser']) || isset($_SESSION['isAdmin'])) {
                 <a class="nav-link" href="home.php">Accueil <span class="sr-only">(current)</span></a>
             </li>';
 
-    if (isset($_SESSION['isAdmin'])) {
+    if ($_SESSION['isAdmin'] === true && $_SESSION['isUser'] === false ) {
         echo '<li class="nav-item">
                       <a class="nav-link" href="employees.php">Employés</a>
                       </li>';

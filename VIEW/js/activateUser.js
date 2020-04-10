@@ -8,6 +8,7 @@ $(document).ready(function () {
                 return $(this).text();
             }).get();
 
+            // récupérer ID
             var row_ID = data[1];
 
 
@@ -16,7 +17,7 @@ $(document).ready(function () {
                 method: "POST",
                 data:{row_ID:row_ID},
                 async: true,
-                success: function(data){
+                success: function(){
                     location.reload();
                 }
             })

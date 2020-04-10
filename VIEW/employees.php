@@ -1,10 +1,11 @@
 <?php
 
-if(!$_SESSION['isAdmin']){
-    header('Location: ../CONTROL/connexion.php');
+if($_SESSION['isUser'] === true && $_SESSION['isAdmin'] === false){
+    header('Location: ../CONTROL/home.php');
     exit();
 }
 
+// Formulaire d'ajout d'utilisateur
 $form = new Form("POST", "../CONTROL/addUser.php", "formAddUser", "formAddUser");
 
 $form->setText("Nom d'utilisateur", "nompre", "pseudo", "pseudo");
@@ -14,6 +15,7 @@ $form->setPassword("Mot de passe", "mot&nbsp;de&nbsp;passe", "pass", "pass");
 $form->setPassword("Répéter mot de passe", "mot&nbsp;de&nbsp;passe", "pass2", "pass2");
 $form->modalSend("validateUser","validateUser","disabled");
 
+// Formulaire modifier utilisateur
 $updateForm = new Form("POST", "../CONTROL/updateUser.php", "formUpdateUser", "formUpdateUser");
 
 $updateForm->setText("Nom d'utilisateur", "nompre", "pseudoEdit", "pseudoEdit");
@@ -28,6 +30,9 @@ $updateForm ->modalSend("validateUpdate","validateUpdate","disabled");
 <div class="container">
 
     <?php
+    /**
+     * Message d'erreur ajout utilisateur via le back end php
+     */
     if (isset($_SESSION['errors'])) {
         $msg = $_SESSION['errors'];
         echo '<div class="alert alert-danger">' . $msg . '</div>';
@@ -40,20 +45,20 @@ $updateForm ->modalSend("validateUpdate","validateUpdate","disabled");
         <div class="col-sm-1">
 
             <div class="form-check">
-                <input class="form-check-input" type="radio" name="radioSearch" id="allRadio" value="option1" checked>
+                <input class="form-check-input radioEmployee" type="radio" name="radioSearch" id="allRadio" value="option1" checked>
                 <label class="form-check-label">
                     Tous
                 </label>
             </div>
             <div class="form-check">
-                <input class="form-check-input" type="radio" name="radioSearch" id="actifRadio" value="option2">
+                <input class="form-check-input radioEmployee" type="radio" name="radioSearch" id="actifRadio" value="option2">
                 <label class="form-check-label">
                     Actif
                 </label>
             </div>
 
             <div class="form-check">
-                <input class="form-check-input" type="radio" name="radioSearch" id="inactifRadio" value="option3">
+                <input class="form-check-input radioEmployee" type="radio" name="radioSearch" id="inactifRadio" value="option3">
                 <label class="form-check-label">
                     Inactif
                 </label>
@@ -129,31 +134,7 @@ $updateForm ->modalSend("validateUpdate","validateUpdate","disabled");
 
         <?php
 
-        foreach ($users->data as $k)
-        {
-            echo '<tr>';
-            if($k->isActive == 1){
-                echo '<td><span class="dot-success"></span></td>';
-            }else{
-                echo '<td><span class="dot-danger"></span></td>';
-            }
-            echo '<td hidden>'.$k->users_ID.'</td>';
-            echo '<td>'.$k->name.'</td>';
-            echo '<td>'.$k->firstname.'</td>';
-            echo '<td>'.$k->pseudo.'</td>';
-            echo '<td>'.$k->label.'</td>';
-            if($k->isActive == 1){
-                echo '<td><button type="button" class="btn btn-warning btn-sm update" id="user-'.$k->users_ID.'">Modifier</button></td>';
-            }else{
-                echo '<td><button type="button" class="btn btn-warning btn-sm update" id="user-'.$k->users_ID.'" disabled>Modifier</button></td>';
-            }
-            if($k->isActive == 1){
-                echo '<td><button type="button" class="btn btn-danger btn-sm" id="activation">Désactiver</button></td>';
-            }else{
-                echo '<td><button type="button" class="btn btn-success btn-sm" id="activation">Activer</button></td>';
-            }
-            echo '</tr>';
-        }
+        $users->displayLoopResult($users);
         ?>
         </tbody>
     </table>

@@ -28,6 +28,16 @@ class Form
         $this->form .= '<input type="hidden" name="'.$name.'" id="'.$id.'" value="'.$value.'"/>';
     }
 
+    public function setChoice(){
+        $this->form .= '<label class="mr-sm-2" for="inlineFormCustomSelect">Preference</label>
+                    <select class="custom-select mr-sm-2" id="inlineFormCustomSelect">
+                        <option selected>Choose...</option>
+                        <option value="1">One</option>
+                        <option value="2">Two</option>
+                        <option value="3">Three</option>
+                    </select>';
+    }
+
     public function submit($name, $text, $id)
     {
         $this->form .= '<button type="submit" class="btn btn-success" name=' . $name . ' id =' . $id . '>' . $text . '</button>';

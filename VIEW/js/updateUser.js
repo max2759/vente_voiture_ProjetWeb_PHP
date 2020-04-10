@@ -9,10 +9,12 @@ $(document).ready(function () {
 
     $(document).on('click', '.update', function () {
 
+        // appel du modal updateUser
         $("#modalUpdateUser").modal({backdrop: 'static', keyboard: false, show: true});
 
         $tr = $(this).closest('tr');
 
+        // récupère la ligne dans laquelle le bouton modifier a été cliqué et les mets dans un tableau
         var data = $tr.children('td').map(function () {
             return $(this).text();
         }).get();

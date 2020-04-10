@@ -40,6 +40,7 @@ $(document).ready(function () {
 
     nom.on('keyup', function () {
         $('.nomAlert').remove();
+        // Vérifie que nom est pas vide et qu'il correspond à la regex
         if (nom.val() !== "" && nomPreReg.test(nom.val())) {
             $('.nomAlert').remove();
             nom.css("border-color", "#5cb85c");
@@ -51,6 +52,7 @@ $(document).ready(function () {
 
     prenom.on('keyup', function () {
         $('.prenomAlert').remove();
+        // idem nom
         if (prenom.val() !== "" && nomPreReg.test(prenom.val())) {
             $('.prenomAlert').hide();
             prenom.css("border-color", "#5cb85c");
@@ -66,8 +68,11 @@ $(document).ready(function () {
         var passval = pass.val();
         var pass2val = pass2.val();
 
+        // Vérifie que mot de passe est pas vide
         if (passval !== "" && pass2val !== "") {
+            // vérifie que longueur mot de passe est > 4
             if(passval.length >= 4 && pass2val.length >= 4){
+                // Vérifier que ce qu'on rentre dans le premier champ mdp correspond au champ répeter mdp
                 if (passval === pass2val) {
                     allPass.css("border-color", "#5cb85c");
                     $('.passwordAlert').hide();
@@ -88,7 +93,9 @@ $(document).ready(function () {
 
     $('input').keyup(function () {
 
+        // Vérifier que les champs ne sont pas vide
         if(pseudo.val() !=="" && nom.val() !=="" && prenom.val() !=="" && pass.val() !=="" && pass2.val() !=="" ){
+            // Vérifier qu'il n'y a pas de message d'erreur
             if(!($('.nomAlert').length) && !($('.pseudoAlert').length) && !($('.passwordAlert').length) && !($('.prenomAlert').length)){
                 validateUser.prop("disabled", false);
             }else{

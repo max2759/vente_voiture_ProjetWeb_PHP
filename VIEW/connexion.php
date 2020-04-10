@@ -10,7 +10,12 @@
             $form->setPassword("Mot de passe", "password", "passLog", "passLog");
             $form->submit("validateConn", "Valider", "validateConn");
             ?>
+
             <?php
+            /*
+             * Message d'erreur si problèmes lors du login
+             *
+             * */
             if (isset($_SESSION['errors'])) {
                 $msg = $_SESSION['errors'];
                 echo '<div class="alert alert-danger">' . $msg . '</div>';
