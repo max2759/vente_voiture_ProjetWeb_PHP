@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Mar 31, 2020 at 01:27 PM
+-- Generation Time: Apr 14, 2020 at 04:18 PM
 -- Server version: 5.7.24
 -- PHP Version: 7.2.19
 
@@ -29,8 +29,20 @@ DELIMITER $$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `addUser` (IN `pFirstname` VARCHAR(100), IN `pName` VARCHAR(100), IN `pPassword` VARCHAR(256), IN `pPseudo` VARCHAR(100))  NO SQL
 insert into users(users_ID,roles_ID,firstname,name,password,pseudo,isActive) VALUES(null, 2, pFirstname, pName, pPassword,pPseudo,1)$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `updateUser` (IN `pFirstname` VARCHAR(250), IN `pName` VARCHAR(250), IN `pPassword` VARCHAR(250), IN `pUsersId` INT)  NO SQL
-UPDATE users SET firstname = pFirstname, name = pName, password = pPassword where users_ID = pUsersId$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sellCar` (IN `pOrderDate` DATE, IN `pPriceUnitOrder` DECIMAL, IN `pUserID` INT)  NO SQL
+insert into orders(orders_ID,order_date,priceUnitOrder,users_ID) VALUES(null,pOrderDate,pPriceUnitOrder,pUserID)$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `updatePassword` (IN `pPassword` VARCHAR(255), IN `pPseudo` VARCHAR(255))  NO SQL
+UPDATE users SET password = pPassword where pseudo = Pseudo$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `updateUser` (IN `pName` VARCHAR(255), IN `pFirstname` VARCHAR(255), IN `pUserID` INT)  NO SQL
+UPDATE users SET name = pName, firstname = pFirstname  where users_ID = pUserID$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `updateUserAndPassword` (IN `pName` VARCHAR(255), IN `pFirstname` VARCHAR(255), IN `pPassword` VARCHAR(255), IN `pUserID` INT)  NO SQL
+UPDATE users SET name = pName, firstname = pFirstname, password = pPassword  where users_ID = pUserID$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `userActivation` (IN `pIsActive` BOOLEAN, IN `pUserID` INT)  NO SQL
+UPDATE users SET isActive = pIsActive where users_ID = pUserID$$
 
 DELIMITER ;
 
@@ -51,7 +63,17 @@ CREATE TABLE `brands` (
 
 INSERT INTO `brands` (`brands_ID`, `name`) VALUES
 (1, 'Toyota'),
-(2, 'Ford');
+(2, 'Ford'),
+(3, 'Kia'),
+(4, 'Mercedes'),
+(5, 'BMW'),
+(6, 'Volkswagen'),
+(7, 'Audi'),
+(8, 'Peugeot'),
+(9, 'Fiat'),
+(10, 'Nissan'),
+(11, 'Suzuki'),
+(12, 'Lexus');
 
 -- --------------------------------------------------------
 
@@ -68,16 +90,21 @@ CREATE TABLE `cars` (
   `horsepower` int(11) NOT NULL,
   `unitprice` decimal(10,0) NOT NULL,
   `isActive` tinyint(1) NOT NULL,
-  `fuel` enum('Essence','Diesel','Hybrid','Plug-in hybrid','Gaz','Electrique') NOT NULL
+  `year` int(11) NOT NULL,
+  `fuel` enum('Essence','Diesel','Hybrid','Plug-in hybrid','Gaz','Electrique') NOT NULL,
+  `picture` mediumblob
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `cars`
 --
 
-INSERT INTO `cars` (`cars_ID`, `brands_ID`, `model`, `color`, `kilometer`, `horsepower`, `unitprice`, `isActive`, `fuel`) VALUES
-(1, 1, 'Supra', 'Rouge', 10000, 340, '60000', 1, 'Essence'),
-(2, 2, 'Fiesta 1.0i Trend', 'gris', 47000, 80, '7999', 1, 'Diesel');
+INSERT INTO `cars` (`cars_ID`, `brands_ID`, `model`, `color`, `kilometer`, `horsepower`, `unitprice`, `isActive`, `year`, `fuel`, `picture`) VALUES
+(1, 1, 'Supra', 'Rouge', 10000, 340, '60000', 1, 1999, 'Essence', NULL),
+(2, 2, 'Fiesta 1.0i Trend', 'Gris', 47000, 80, '7999', 0, 2009, 'Diesel', NULL),
+(3, 5, 'BMW 318 Berline', 'Noir', 1, 150, '33000', 1, 2018, 'Diesel', NULL),
+(4, 6, 'Volkswagen Golf VII Trendline', 'Noir', 10, 86, '18750', 1, 2019, 'Essence', NULL),
+(5, 1, 'Toyota Corolla 2.0 Hybrid', 'Rouge', 0, 179, '28500', 1, 2019, 'Hybrid', NULL);
 
 -- --------------------------------------------------------
 
@@ -88,8 +115,17 @@ INSERT INTO `cars` (`cars_ID`, `brands_ID`, `model`, `color`, `kilometer`, `hors
 CREATE TABLE `orders` (
   `orders_ID` int(11) NOT NULL,
   `users_ID` int(11) NOT NULL,
-  `date` date NOT NULL
+  `order_Date` date NOT NULL,
+  `priceUnitOrder` decimal(10,0) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Triggers `orders`
+--
+DELIMITER $$
+CREATE TRIGGER `insertOD` AFTER INSERT ON `orders` FOR EACH ROW insert into orders_details(orders_ID, cars_ID) VALUES ((select orders_ID FROM orders), (SELECT cars_ID FROM cars))
+$$
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -99,8 +135,7 @@ CREATE TABLE `orders` (
 
 CREATE TABLE `orders_details` (
   `cars_ID` int(11) NOT NULL,
-  `orders_ID` int(11) NOT NULL,
-  `priceUnitOrder` decimal(10,0) NOT NULL
+  `orders_ID` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -143,12 +178,14 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`users_ID`, `roles_ID`, `name`, `firstname`, `pseudo`, `password`, `isActive`) VALUES
-(11, 1, 'Max', 'Zab', 'maxmax', '$2y$10$jshHtHv2dvzW5qNrFuejQ.9mqu4szeSrYwdCmlW4N/7uPs6Hiz.4q', 1),
-(12, 2, 'Eude', 'Jean', 'eudjea', '$2y$10$mS7p9l13IGSXgwCjVO0CvuU8He.LHMkI/MUKtMYayHVG2O/fEu5rW', 0),
-(14, 1, 'Conreur', 'Valentin', 'valcon', '$2y$10$KxxbomRrYCE90mKvGLHXT.Gejf4lm3OhSyQTa89tjVKXrG/wda2Vi', 1),
-(15, 2, 'Wick', 'John', 'wicjoh', '$2y$10$7YZX39MvuQbfaeUodw3hDeSqmDbfZRqL11u1ekoywmKMntTrZ8NIG', 1),
-(16, 2, 'Balboa', 'Rocky', 'balroc', '$2y$10$354o3fn8Lm/BaeeS8hRLhu3iKFMQi.m41gKzLllI3h1xFviC6rdwy', 0),
-(17, 2, 'Smith', 'Morty', 'smimor', '$2y$10$qOCA6Qpc2wSpXAj8sXd7jurn7.VOJLizp3MOUmxERHl.tTEVdnTd.', 1);
+(11, 1, 'Zabbara', 'Maximilien', 'maxzab', '$2y$10$8EU48vipo.nXAgsdR4WWxOhLgdsPRE0T8RW8XE8IB5tOF2FPeB8Ae', 1),
+(12, 2, 'Eude', 'Jean', 'eudjea', '$2y$10$8EU48vipo.nXAgsdR4WWxOhLgdsPRE0T8RW8XE8IB5tOF2FPeB8Ae', 1),
+(14, 1, 'Conreur', 'Valentin', 'valcon', '$2y$10$8EU48vipo.nXAgsdR4WWxOhLgdsPRE0T8RW8XE8IB5tOF2FPeB8Ae', 1),
+(15, 2, 'Wicky', 'John', 'wicjoh', '$2y$10$8EU48vipo.nXAgsdR4WWxOhLgdsPRE0T8RW8XE8IB5tOF2FPeB8Ae', 1),
+(16, 2, 'Balboa', 'Rocky', 'balroc', '$2y$10$8EU48vipo.nXAgsdR4WWxOhLgdsPRE0T8RW8XE8IB5tOF2FPeB8Ae', 1),
+(17, 2, 'Smith', 'Mortimer', 'smimor', '$2y$10$8EU48vipo.nXAgsdR4WWxOhLgdsPRE0T8RW8XE8IB5tOF2FPeB8Ae', 1),
+(19, 2, 'Tyson', 'Mike', 'miktys', '$2y$10$8EU48vipo.nXAgsdR4WWxOhLgdsPRE0T8RW8XE8IB5tOF2FPeB8Ae', 0),
+(20, 2, 'Sanchez', 'Rick', 'sanric', '$2y$10$8EU48vipo.nXAgsdR4WWxOhLgdsPRE0T8RW8XE8IB5tOF2FPeB8Ae', 0);
 
 --
 -- Indexes for dumped tables
@@ -202,13 +239,13 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `brands`
 --
 ALTER TABLE `brands`
-  MODIFY `brands_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `brands_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `cars`
 --
 ALTER TABLE `cars`
-  MODIFY `cars_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `cars_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `orders`
@@ -226,7 +263,7 @@ ALTER TABLE `roles`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `users_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `users_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- Constraints for dumped tables

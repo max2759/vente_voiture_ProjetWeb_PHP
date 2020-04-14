@@ -26,18 +26,21 @@ if(isset($_SESSION['isUser']) || isset($_SESSION['isAdmin'])){
     <script src="../VIEW/js/updateUser.js"></script>
     <script src="../VIEW/js/activateUser.js"></script>
     <script src="../VIEW/js/changePassword.js"></script>
+    <script src="../VIEW/js/sellCar.js"></script>
     <link rel="stylesheet" href="../VIEW/css/bootstrap.css">
     <link rel="stylesheet" href="../VIEW/css/bootstrap-grid.css">
     <link rel="stylesheet" href="../VIEW/css/bootstrap-reboot.css">
     <link rel="stylesheet" href="../VIEW/css/style.css">
+    <link rel="stylesheet" href="../VIEW/css/fontawesome.min.css">
+    <link rel="stylesheet" href="../VIEW/css/all.css">
     <link rel="icon" href="../VIEW/img/favicon.ico" type="image/x-icon">
 </head>
-<body>
+<body class="bg-light">
 
 <?php
 
 if(isset($_SESSION['isUser']) || isset($_SESSION['isAdmin'])) {
-    echo '<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    echo '<nav class="navbar navbar-expand-lg navbar-light">
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon">
         </span>

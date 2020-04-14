@@ -22,7 +22,7 @@ if(isset($oldPass) && isset($newPass) && isset($newPass2) && isset($pseudo) && !
                     $users->updatePassword($passHash, $pseudo);
                     session_start();
                     $_SESSION['successpwd'] = "mot de passe modifié !";
-                    header('location: '.$_SERVER['PHP_SELF']);
+                    header('Location: ../CONTROL/home.php');
                     exit();
                 }else{
                     session_start();

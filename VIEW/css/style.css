@@ -1,10 +1,35 @@
+/*#### Navbar #######*/
 .navbar .navbar-collapse {
     text-align: center;
 }
 
+nav {
+    background-color: #fff;
+}
+
+.modify-clog {
+    margin-left: 5px;
+}
+
+.modal-clog{
+    border: none;
+    background-color: transparent;
+}
+
+.btn-logout{
+    border: none;
+    background-color: transparent;
+}
+
+.logoutBox {
+    display: flex;
+}
+
+
 .row.justify-content-between {
     margin: 10px 10px 10px 5px;
 }
+
 
 .btn-warning{
     color: #ffffff;
@@ -14,10 +39,7 @@
     color: #ffff;
 }
 
-.btn-logout{
-    border: none;
-    background-color: transparent;
-}
+
 
 .login-jumbotron{
     margin: 0 auto;
@@ -49,13 +71,14 @@
     border-radius: 0;
 }
 
-.logoutBox {
-    display: flex;
-}
+
+/*### Employee page ###*/
 
 .search-tool{
     margin-top: 15px;
     margin-bottom: 15px;
+    background-color: #fff;
+    padding: 15px;
 }
 
 .dot-success {
@@ -74,16 +97,66 @@
     display: inline-block;
 }
 
-.modify-clog {
-    margin-left: 5px;
-}
 
-.modal-clog{
-    border: none;
-    background-color: transparent;
-}
 
-input[type=search] {
+input#searchEmpl {
     margin: auto;
 }
+
+/*##### Car page ######*/
+
+.search-tool-car{
+    float: left;
+    margin-bottom: 15px;
+    margin-left: .71685%;
+    margin-right: .71685%;
+    width: 23.56631%;
+    padding: 15px;
+    background-color: #ffffff;
+}
+
+.car-page{
+    margin-top: 60px;
+}
+
+.car-listing{
+    display: flex;
+    flex-wrap: wrap;
+    margin-left: .71685%;
+    margin-right: .71685%;
+    width: 73.56631%;
+}
+
+.card{
+    width: 20rem;
+    margin: auto;
+    margin-bottom: 1rem;
+}
+
+.search-tool-car>div {
+    margin-bottom: 1rem;
+}
+
+.card-body {
+    text-align: center;
+}
+
+.fa-check:before {
+    content: "\f00c";
+    color: green;
+}
+
+.fa-times:before {
+    content: "\f00d";
+    color: red;
+}
+
+.car-available{
+    color: green;
+}
+
+.car-unavailable{
+    color: red;
+}
+
 

@@ -1,10 +1,13 @@
 $(document).ready(function () {
-    var pseudoEdit = $("#pseudoEdit");
+
     var nomEdit = $('#nomEdit');
     var prenomEdit = $('#prenomEdit');
-    var passEdit = $("#passEdit");
+    var pseudoEdit = $("#pseudoEdit");
     var employee_id = $("#employee_id");
     var nomPreReg = new RegExp("^[A-Z]+(([',. -][A-Za-zÀ-ÿ])?[A-Za-zÀ-ÿ]*)*$");
+    var allPassEdit = $('#newPassEdit, #newPass2Edit');
+    var newPassEdit = $('#newPassEdit');
+    var newPassEdit2 = $('#newPass2Edit');
 
 
     $(document).on('click', '.update', function () {
@@ -23,10 +26,10 @@ $(document).ready(function () {
         nomEdit.val(data[2]);
         prenomEdit.val(data[3]);
         pseudoEdit.val(data[4]);
-        passEdit.val("");
+        allPassEdit.val("");
 
 
-        passEdit.css("border", "1px solid #ced4da");
+        allPassEdit.css("border", "1px solid #ced4da");
         nomEdit.css("border", "1px solid #ced4da");
         prenomEdit.css("border", "1px solid #ced4da");
         $('.inputAddAlert').remove();
@@ -36,8 +39,7 @@ $(document).ready(function () {
         $('.prenomEditAlert').remove();
     })
 
-
-   pseudoEdit.prop("readonly", true);
+    pseudoEdit.prop("readonly", true);
 
     nomEdit.on('keyup', function () {
         $('.nomEditAlert').remove();
@@ -61,31 +63,44 @@ $(document).ready(function () {
         }
     })
 
+    allPassEdit.on('keyup', function () {
 
-    passEdit.on('keyup', function () {
-        $('.passwordEditAlert').remove();
-        if (passEdit.val() !== "") {
-            passEdit.css("border-color", "#5cb85c");
-            $('.passwordEditAlert').hide();
+        $('.passwordEditChangeAlert').remove();
+        var newPassVal = newPassEdit.val();
+        var newPassVal2 = newPassEdit2.val();
+
+        if (newPassVal !== "" && newPassVal2 !== "") {
+            if (newPassVal.length >= 4 && newPassVal2.length >= 4) {
+                if (newPassVal === newPassVal2) {
+                    allPassEdit.css("border-color", "#5cb85c");
+                    $('.passwordEditChangeAlert').hide();
+                } else {
+                    allPassEdit.css("border-color", "#d9534f");
+                    $("<div class=\"alert alert-danger passwordEditChangeAlert\" role=\"alert\">Les mots de passe ne correspondent pas !</div>").insertAfter(newPassEdit2);
+                }
+            } else {
+                allPassEdit.css("border-color", "#d9534f");
+                $("<div class=\"alert alert-danger passwordEditChangeAlert\" role=\"alert\">Le mot de passe doit contenir au moins 4 caractères !</div>").insertAfter(newPassEdit2);
+            }
         } else {
-            passEdit.css("border-color", "#d9534f");
-            $("<div class=\"alert alert-danger passwordEditAlert\" role=\"alert\">Le mot de passe est vide !</div>").insertAfter(passEdit);
+            allPassEdit.css("border-color", "#d9534f");
+            $("<div class=\"alert alert-danger passwordEditChangeAlert\" role=\"alert\">Entrez un mot de passe!</div>").insertAfter(newPassEdit2);
         }
     })
 
     $('input').keyup(function () {
 
-        if(passEdit.val() !== "" && nomEdit.val() !== "" && prenomEdit.val() !== ""  && pseudoEdit.val() !==""){
-            if(!($('.nomEditAlert').length) && !($('.prenomEditAlert').length) && !($('.passwordEditAlert').length)){
+        if (nomEdit.val() !== "" && prenomEdit.val() !== "" && pseudoEdit.val() !== "") {
+            if (!($('.nomEditAlert').length) && !($('.prenomEditAlert').length) && !($('.passwordEditAlert').length)) {
                 $("#validateUpdate").prop("disabled", false);
-            }else{
+            } else {
                 $("#validateUpdate").prop('disabled', true);
             }
 
-        }else{
-            if($('.nomEditAlert').length && $('.prenomEditAlert').length && $('.passwordEditAlert').length){
+        } else {
+            if ($('.nomEditAlert').length && $('.prenomEditAlert').length) {
                 $("#validateUpdate").prop('disabled', true);
-            }else{
+            } else {
                 $("#validateUpdate").prop("disabled", true);
             }
         }

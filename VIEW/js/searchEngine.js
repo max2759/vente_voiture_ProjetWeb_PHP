@@ -1,4 +1,4 @@
-function search(myID, myfile){
+function search(myID, myFile, myFile2){
     $(document).ready(function() {
         $("#" + myID).on('keyup', function () {
            var search = $("#" + myID);
@@ -6,7 +6,7 @@ function search(myID, myfile){
             if (searchVal != '') {
                 $("#results").html('');
                 $.ajax({
-                    url: "../CONTROL/"+myfile,
+                    url: "../CONTROL/"+myFile,
                     method: 'POST',
                     data: {search: searchVal},
                     async: true,
@@ -15,7 +15,15 @@ function search(myID, myfile){
                     }
                 });
             } else {
-                location.reload();
+                $.ajax({
+                    url: "../CONTROL/"+myFile2,
+                    method: "POST",
+                    data:{value: "option1"},
+                    async: true,
+                    success: function (data) {
+                        $('#results').html(data);
+                    }
+                })
             }
         })
     })
@@ -39,7 +47,7 @@ function radioChoice(radioClass, myFile){
 }
 
 
-search('searchEmpl', 'search.php');
-search('searchCar', 'searchCar.php');
+search('searchEmpl', 'search.php', 'radioChoice.php');
+search('searchCar', 'searchCar.php','radioChoiceCar.php');
 radioChoice('radioEmployee','radioChoice.php');
 radioChoice('radioCars','radioChoiceCar.php');
