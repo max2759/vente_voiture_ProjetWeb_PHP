@@ -22,13 +22,11 @@ error_reporting(E_ALL);
                     session_start();
                     $_SESSION['pseudoLog'] = $pseudoLog;
                     $_SESSION['isAdmin'] = true;
-                    $_SESSION['isUser'] = false;
                     $_SESSION['userID'] = $users->data[0]->users_ID;
                     header('location: ../CONTROL/home.php');
                 }else{
                     session_start();
                     $_SESSION['pseudoLog'] = $pseudoLog;
-                    $_SESSION['isUser'] = true;
                     $_SESSION['isAdmin'] = false;
                     $_SESSION['userID'] = $users->data[0]->users_ID;
                     header('location: ../CONTROL/home.php');

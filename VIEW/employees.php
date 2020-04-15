@@ -1,6 +1,6 @@
 <?php
 
-if($_SESSION['isUser'] === true && $_SESSION['isAdmin'] === false){
+if($_SESSION['isAdmin'] == false){
     header('Location: ../CONTROL/home.php');
     exit();
 }

@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-if(isset($_SESSION['isUser']) || isset($_SESSION['isAdmin'])){
+if(isset($_SESSION['isAdmin'])){
     $user = $_SESSION['pseudoLog'];
     $changePasswordForm = new Form("POST", "../CONTROL/changeUserPassword.php", "userChangePassword", "userChangePassword");
     $changePasswordForm->setText("Ancien mot de passe", "ancien&nbsp;mot&nbsp;de&nbsp;passe", "oldPass", "oldPass");
@@ -39,7 +39,7 @@ if(isset($_SESSION['isUser']) || isset($_SESSION['isAdmin'])){
 
 <?php
 
-if(isset($_SESSION['isUser']) || isset($_SESSION['isAdmin'])) {
+if(isset($_SESSION['isAdmin'])) {
     echo '<nav class="navbar navbar-expand-lg navbar-light">
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon">
@@ -52,7 +52,7 @@ if(isset($_SESSION['isUser']) || isset($_SESSION['isAdmin'])) {
                 <a class="nav-link" href="home.php">Accueil <span class="sr-only">(current)</span></a>
             </li>';
 
-    if ($_SESSION['isAdmin'] === true && $_SESSION['isUser'] === false ) {
+    if ($_SESSION['isAdmin'] == true) {
         echo '<li class="nav-item">
                       <a class="nav-link" href="employees.php">Employés</a>
                       </li>';

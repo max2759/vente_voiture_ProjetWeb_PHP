@@ -1,10 +1,10 @@
 <?php
 
-if (!(isset($_SESSION['isUser']) || isset($_SESSION['isAdmin']))) {
-
+if (!(isset($_SESSION['isAdmin']))) {
     header('Location: ../CONTROL/connexion.php');
     exit();
 }
+
 $userID = $_SESSION['userID'];
 $formCars = new Form("POST", "../CONTROL/sellCar.php", "formAddCar", "formAddCar");
 $formCars->setText("Marque", "marque", "marque", "marque");
