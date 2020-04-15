@@ -87,6 +87,7 @@ class users extends model
         $req->bindParam(':pUserID', $userID, PDO::PARAM_INT);
         $req->execute();
     }
+
     // appel la procédure stocké qui permet de modifier des utilisateurs et de modifier son mdp
     function updateUserAndPassword($name, $firstname,$password, $userID){
         $req = $this->stmt->prepare('CALL updateUserAndPassword(:pName, :pFirstname,:pPassword, :pUserID)');

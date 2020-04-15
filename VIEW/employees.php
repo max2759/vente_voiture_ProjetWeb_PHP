@@ -1,7 +1,7 @@
 <?php
 
 if($_SESSION['isAdmin'] == false){
-    header('Location: ../CONTROL/home.php');
+
     exit();
 }
 

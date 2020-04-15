@@ -9,9 +9,15 @@ class cars extends model
     function displayCardCars($cars)
     {
         foreach ($cars->data as $k) {
-            echo '<div class="card">
-            <img class="card-img-top" src="../VIEW/img/fordFiesta.png" alt="Card image cap">
-            <div class="card-body">';
+            echo '<div class="card">';
+
+            if($k->picture == NULL){
+                echo '<img class="card-img-top" src="../VIEW/img/no-image-icon.png" alt="Card image cap" height="238,49px">';
+            }else{
+                echo '<img class="card-img-top" src="../VIEW/img/'.$k->picture.'" alt="Card image cap">';
+                }
+
+            echo '<div class="card-body">';
             echo '<h5 class="card-title">' . $k->model . '</h5>';
             echo '<p class="card-text">' . $k->name . '</p>';
             if ($k->isActive == 1) {
@@ -37,6 +43,13 @@ class cars extends model
             echo '</div>
         </div>';
         }
+    }
+
+    function updateImage($picture, $carsID){
+        $req= $this->stmt->prepare('CALL updateImage(:pPicture, :pCarsID)');
+        $req->bindParam(":pPicture", $picture, PDO::PARAM_STR, 255);
+        $req->bindParam(":pCarsID", $carsID, PDO::PARAM_INT);
+        $req->execute();
     }
 
 }

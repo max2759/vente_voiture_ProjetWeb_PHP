@@ -5,7 +5,7 @@ if (!(isset($_SESSION['isAdmin']))) {
     exit();
 }
 
-$userID = $_SESSION['userID'];
+/*** Form Sell Car ***/
 $formCars = new Form("POST", "../CONTROL/sellCar.php", "formAddCar", "formAddCar");
 $formCars->setText("Marque", "marque", "marque", "marque");
 $formCars->setText("Modèle", "modèle", "modele", "modele");
@@ -16,10 +16,14 @@ $formCars->setText("Prix", "prix", "prix", "prix");
 $formCars->setText("Carburant", "carburant", "carburant", "carburant");
 $formCars->setText("Année", "année", "annee", "annee");
 $formCars->setNumber("Prix de vente", "prix_de_vente", "prix_de_vente");
-$formCars->setHidden('carsEmployeeId', 'carsEmployeeId', $userID);
 $formCars->setDate();
 
 $formCars->modalSend("validateCar", "validateCar");
+
+/*** Form Add Car ***/
+/*$formUploadImage = new Form("POST", "../CONTROL/testInsertImage.php", "imgUpload", "imgUpload" , "multipart/form-data");
+$formUploadImage->setPicture("image");
+$formUploadImage->submit("subImg", "Ajouter image","subImg");*/
 
 
 ?>
@@ -77,6 +81,7 @@ $formCars->modalSend("validateCar", "validateCar");
             <input type="search" name="searchCar" id="searchCar" placeholder="Rechercher un véhicule..."
                    class="form-control">
         </div>
+
         <!-- Button trigger modal -->
         <!--<div class="add-box">
             <button type="button" class="btn btn-info col-auto" data-backdrop="static" data-toggle="modal" data-target="#modalAddCars">
@@ -85,10 +90,9 @@ $formCars->modalSend("validateCar", "validateCar");
         </div>-->
     </div>
 
-    <!--test List voiture-->
+    <!-- Display Car -->
     <div class="car-listing" id="results">
         <?php $cars->displayCardCars($cars) ?>
-
     </div>
 
 

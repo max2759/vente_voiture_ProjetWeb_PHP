@@ -4,9 +4,9 @@ class Form
 {
     public $form;
 
-    public function __construct($method, $action, $name, $id)
+    public function __construct($method, $action, $name, $id, $enctype= null)
     {
-        $this->form = '<form method=' . $method . ' action=' . $action . ' name=' . $name . ' id=' . $id . '>';
+        $this->form = '<form method=' . $method . ' action=' . $action . ' name=' . $name . ' id=' . $id . ' enctype='.$enctype.'>';
     }
 
     public function setText($label, $placeHolder, $name, $id)

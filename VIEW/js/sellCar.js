@@ -14,7 +14,9 @@ $(document).ready(function(){
     $(document).on('click','.sellCar', function () {
         $("#modalSellCar").modal({backdrop: 'static', keyboard: false, show: true});
 
-        $tr = $(this).closest('tr');
+
+
+       /* $tr = $(this).closest('tr');
 
         // récupère la ligne dans laquelle le bouton modifier a été cliqué et les mets dans un tableau
         var data = $tr.children('td').map(function () {
@@ -29,7 +31,7 @@ $(document).ready(function(){
         prix.val(data[8]);
         annee.val(data[9]);
         carburant.val(data[10]);
-        prixDeVente.val(data[8]);
+        prixDeVente.val(data[8]);*/
     })
 
     marque.prop("readonly", true);

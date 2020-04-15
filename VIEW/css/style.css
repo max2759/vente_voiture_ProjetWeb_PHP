@@ -1,4 +1,5 @@
-/*#### Navbar #######*/
+/****************************************** NAVBAR ***********************************************************/
+
 .navbar .navbar-collapse {
     text-align: center;
 }
@@ -16,20 +17,16 @@ nav {
     background-color: transparent;
 }
 
-.btn-logout{
-    border: none;
-    background-color: transparent;
-}
-
 .logoutBox {
     display: flex;
 }
 
+/****************************************** BTN  ***********************************************************/
 
-.row.justify-content-between {
-    margin: 10px 10px 10px 5px;
+.btn-logout{
+    border: none;
+    background-color: transparent;
 }
-
 
 .btn-warning{
     color: #ffffff;
@@ -39,7 +36,10 @@ nav {
     color: #ffff;
 }
 
-
+.row.justify-content-between {
+    margin: 10px 10px 10px 5px;
+}
+/****************************************** LOGIN ***********************************************************/
 
 .login-jumbotron{
     margin: 0 auto;
@@ -72,7 +72,7 @@ nav {
 }
 
 
-/*### Employee page ###*/
+/****************************************** EMPLOYEES ***********************************************************/
 
 .search-tool{
     margin-top: 15px;
@@ -97,13 +97,15 @@ nav {
     display: inline-block;
 }
 
-
+table{
+    background-color: #ffffff;
+}
 
 input#searchEmpl {
     margin: auto;
 }
 
-/*##### Car page ######*/
+/****************************************** CAR ***********************************************************/
 
 .search-tool-car{
     float: left;
@@ -117,6 +119,7 @@ input#searchEmpl {
 
 .car-page{
     margin-top: 60px;
+    margin-bottom: 60px;
 }
 
 .car-listing{
@@ -159,4 +162,14 @@ input#searchEmpl {
     color: red;
 }
 
+/****************************************** FOOTER ***********************************************************/
 
+footer{
+    border-top: 1px solid lightgray;
+    padding: 16px;
+}
+
+.sentence{
+    font-size: 13px;
+    color: #949494;
+}
