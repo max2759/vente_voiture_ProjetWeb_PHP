@@ -16,12 +16,15 @@
              * Message d'erreur si problèmes lors du login
              *
              * */
+            session_start();
+
             if (isset($_SESSION['errors'])) {
                 $msg = $_SESSION['errors'];
                 echo '<div class="alert alert-danger">' . $msg . '</div>';
                 unset($_SESSION['errors']);
             }
             ?>
+
             <?php
             $form->getForm();
 

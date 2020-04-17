@@ -1,25 +1,5 @@
 <?php
 
-if (!(isset($_SESSION['isAdmin']))) {
-    header('Location: ../CONTROL/connexion.php');
-    exit();
-}
-
-/*** Form Sell Car ***/
-$formCars = new Form("POST", "../CONTROL/sellCar.php", "formAddCar", "formAddCar");
-$formCars->setText("Marque", "marque", "marque", "marque");
-$formCars->setText("Modèle", "modèle", "modele", "modele");
-$formCars->setText("Couleur", "couleur", "couleur", "couleur");
-$formCars->setText("Kilomètrage", "kilomètres", "km", "km");
-$formCars->setText("Chevaux", "chevaux", "cv", "cv");
-$formCars->setText("Prix", "prix", "prix", "prix");
-$formCars->setText("Carburant", "carburant", "carburant", "carburant");
-$formCars->setText("Année", "année", "annee", "annee");
-$formCars->setNumber("Prix de vente", "prix_de_vente", "prix_de_vente");
-$formCars->setDate();
-
-$formCars->modalSend("validateCar", "validateCar");
-
 /*** Form Add Car ***/
 /*$formUploadImage = new Form("POST", "../CONTROL/testInsertImage.php", "imgUpload", "imgUpload" , "multipart/form-data");
 $formUploadImage->setPicture("image");

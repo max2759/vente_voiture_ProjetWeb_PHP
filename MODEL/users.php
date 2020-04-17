@@ -1,6 +1,5 @@
 <?php
 
-
 class users extends model
 {
     var $table = 'users u';

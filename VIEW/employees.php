@@ -1,10 +1,4 @@
 <?php
-
-if($_SESSION['isAdmin'] == false){
-
-    exit();
-}
-
 // Formulaire d'ajout d'utilisateur
 $form = new Form("POST", "../CONTROL/addUser.php", "formAddUser", "formAddUser");
 
