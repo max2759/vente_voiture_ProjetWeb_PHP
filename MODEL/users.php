@@ -21,9 +21,9 @@ class users extends model
             echo '<td>'.$k->pseudo.'</td>';
             echo '<td>'.$k->label.'</td>';
             if($k->isActive == 1){
-                echo '<td><button type="button" class="btn btn-warning btn-sm update" id="user-'.$k->users_ID.'">Modifier</button></td>';
+                echo '<td><button type="button" class="btn btn-warning btn-sm update" id="user-'.$k->users_ID.'"><i class="far fa-edit"></i></button></td>';
             }else{
-                echo '<td><button type="button" class="btn btn-warning btn-sm update" id="user-'.$k->users_ID.'" disabled>Modifier</button></td>';
+                echo '<td><button type="button" class="btn btn-warning btn-sm update" id="user-'.$k->users_ID.'" disabled><i class="far fa-edit"></i></button></td>';
             }
             if($k->isActive == 1){
                 echo '<td><button type="button" class="btn btn-danger btn-sm" id="activation">Désactiver</button></td>';

@@ -14,7 +14,7 @@ class model
             $userDB = 'root';
             $passwd = '';
 
-            $this->stmt = new PDO($dns, $userDB, $passwd);
+            $this->stmt = new PDO($dns, $userDB, $passwd, array(PDO::ATTR_ERRMODE => PDO::ERRMODE_WARNING));
         }catch(PDOException $e){
             die('Erreur : '. $e->getMessage());
         }
@@ -53,6 +53,18 @@ class model
         }
 
 
+    }
+
+    /**
+     * execution de n'importe quelle requete
+     * @param $sql
+     * @return array
+     */
+
+    public function query($sql, $data = array()){
+        $req = $this->stmt->prepare($sql);
+        $req->execute($data);
+        return $req->fetchAll(PDO::FETCH_OBJ);
     }
 
     static function load($nom){

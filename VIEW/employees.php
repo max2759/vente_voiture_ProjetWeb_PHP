@@ -75,7 +75,7 @@ $updateForm ->modalSend("validateUpdate","validateUpdate","disabled");
         <!-- Button trigger modal -->
         <div class="add-box">
         <button type="button" class="btn btn-info col-auto" data-backdrop="static" data-toggle="modal" data-target="#modalAddUser">
-            Ajouter
+            <i class="far fa-plus-square"></i> Ajouter
         </button>
         </div>
     </div>

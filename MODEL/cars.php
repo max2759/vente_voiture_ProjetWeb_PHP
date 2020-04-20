@@ -28,7 +28,7 @@ class cars extends model
             echo '</div>';
             echo '<ul class="list-group list-group-flush">';
             echo  '<li class="list-group-item"><i class="fas fa-euro-sign"></i></i> ' . number_format($k->unitprice, 2, ',', ' ') . '</li>';
-            echo  '<li class="list-group-item"><i class="fas fa-road"></i> ' . $k->kilometer . ' km</li>';
+            echo  '<li class="list-group-item"><i class="fas fa-road"></i> ' . number_format($k->kilometer, 2, ',', ' ') . ' km</li>';
             echo '<li class="list-group-item"><i class="fas fa-tachometer-alt"></i> ' . $k->horsepower . ' CH</li>';
             echo '<li class="list-group-item"><i class="fas fa-calendar-alt"></i> ' . $k->year . '</li>';
             echo '<li class="list-group-item"><i class="fas fa-palette"></i> ' . $k->color . '</li>';

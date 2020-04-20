@@ -8,7 +8,6 @@
                 <div class="clearfix"></div>
             </div>
             <div class="card-body shop-body">
-
                 <div class="pull-right">
                     <a href="" class="btn btn-outline-secondary pull-right">
                         Update shopping cart

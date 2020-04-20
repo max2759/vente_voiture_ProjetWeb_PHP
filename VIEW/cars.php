@@ -56,12 +56,14 @@ $formUploadImage->submit("subImg", "Ajouter image","subImg");*/
                 </label>
             </div>
         </div>
+        <hr style="width: 100%">
         <!-- search engine -->
         <div>
             <input type="search" name="searchCar" id="searchCar" placeholder="Rechercher un véhicule..."
                    class="form-control">
         </div>
 
+        <hr style="width: 100%">
         <!-- Button trigger modal -->
         <!--<div class="add-box">
             <button type="button" class="btn btn-info col-auto" data-backdrop="static" data-toggle="modal" data-target="#modalAddCars">
@@ -72,7 +74,7 @@ $formUploadImage->submit("subImg", "Ajouter image","subImg");*/
 
     <!-- Display Car -->
     <div class="car-listing" id="results">
-        <?php $cars->displayCardCars($cars) ?>
+        <?php $cars->displayCardCars($cars); ?>
     </div>
 
 
@@ -97,7 +99,7 @@ $formUploadImage->submit("subImg", "Ajouter image","subImg");*/
     </div>-->
 
     <!-- Modal sellCar-->
-    <div class="modal fade" id="modalSellCar" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+    <!--<div class="modal fade" id="modalSellCar" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
          aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
@@ -108,14 +110,12 @@ $formUploadImage->submit("subImg", "Ajouter image","subImg");*/
                     </button>
                 </div>
                 <div class="modal-body">
-                    <?php
-                    $formCars->getForm();
-                    ?>
+
                 </div>
 
             </div>
         </div>
-    </div>
+    </div>-->
 
 </div>
 

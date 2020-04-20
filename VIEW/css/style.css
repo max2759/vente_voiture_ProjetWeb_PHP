@@ -116,7 +116,8 @@ input#searchEmpl {
 /****************************************** CAR ***********************************************************/
 
 .search-tool-car{
-    float: left;
+    /*float: left;*/
+    height: min-content;
     margin-bottom: 15px;
     margin-left: .71685%;
     margin-right: .71685%;
@@ -128,6 +129,8 @@ input#searchEmpl {
 .car-page{
     margin-top: 60px;
     margin-bottom: 60px;
+    display: flex;
+    flex-wrap: wrap;
 }
 
 .car-listing{
@@ -141,10 +144,6 @@ input#searchEmpl {
 .card{
     width: 20rem;
     margin: auto;
-    margin-bottom: 1rem;
-}
-
-.search-tool-car>div {
     margin-bottom: 1rem;
 }
 
@@ -168,6 +167,10 @@ input#searchEmpl {
 
 .car-unavailable{
     color: red;
+}
+
+.add-basket-success{
+    width: 100%;
 }
 
 /****************************************** Shopping Cart ***********************************************************/

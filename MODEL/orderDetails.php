@@ -3,8 +3,7 @@
 
 class orderDetails extends model
 {
-    var $table = 'orders o';
+    var $table = 'orders od';
     var $data;
-
 
 }

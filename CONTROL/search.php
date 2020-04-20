@@ -8,7 +8,13 @@ if(isset($_POST['search'])){
     $searchEmployee = $_POST['search'];
     $users = model::load("users");
     $users->readDB('u.users_ID, u.name, u.firstname, u.pseudo, r.label, u.isActive', " CONCAT(u.pseudo, ' ', u.name, ' ', u.firstname,' ', r.label) LIKE '%".$searchEmployee."%'", 'roles r on r.roles_ID = u.roles_ID');
-    $users->displayLoopResult($users);
+
+    if(!empty($users->displayLoopResult($users))){
+        $users->displayLoopResult($users);
+    } else{
+        echo '<tr><td colspan="7" style="text-align: center"><span><i class="fas fa-user-times"></i> UTILISATEUR N\'EXISTE PAS</span></td></tr>';
+    }
+
 }
 
 
