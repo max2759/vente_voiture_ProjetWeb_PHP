@@ -1,7 +1,7 @@
 <?php
 
 
-class shoppingCart extends model
+class shoppingCart
 {
     public function __construct()
     {
