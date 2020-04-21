@@ -8,6 +8,9 @@
                 <div class="clearfix"></div>
             </div>
             <div class="card-body shop-body">
+                <?php
+                $cars->displayCarstoShop($_SESSION['panier']);
+                ?>
                 <div class="pull-right">
                     <a href="" class="btn btn-outline-secondary pull-right">
                         Update shopping cart
