@@ -10,7 +10,7 @@ class shoppingCart
         }
     }
 
-    public function add($carsID){
+    /*public function add($carsID){
         $_SESSION['panier'][$carsID];
-    }
+    }*/
 }

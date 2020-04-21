@@ -9,6 +9,7 @@ if (isset($_SESSION['isAdmin'])) {
     require('../VIEW/Form.php');
     require('../VIEW/header.php');
     require('../VIEW/shopping-cart.php');
+    $basket = model::load('shoppingCart');
     require('../VIEW/footer.php');
 } else {
     header('Location: connexion.php');
