@@ -60,19 +60,17 @@ class cars extends model
                     </div>
                     <div class="col-12 col-sm-12 text-sm-center col-md-4 text-md-right row">
                         <div class="col-3 col-sm-3 col-md-6 text-md-right" style="padding-top: 5px">
-                            <h6><strong>'.number_format($k->unitprice, 2, ',', ' ').'<span class="text-muted">x</span></strong></h6>
+                            <h6><strong>'.number_format($k->unitprice, 2, ',', ' ').' €<!--<span class="text-muted">x</span></strong>--></h6>
                         </div>
                         <div class="col-4 col-sm-4 col-md-4">
-                            <div class="quantity">
-                                <input type="button" value="+" class="plus">
-                                <input type="number" step="1" max="99" min="1" value="1" title="Qty" class="qty"
-                                       size="4">
-                                <input type="button" value="-" class="minus">
+                            <div class="quantity">                             
+                                <input type="number" step="1" max="1" min="1" value="1" title="Qty" class="qty"
+                                       size="4">                            
                             </div>
                         </div>
                         <div class="col-2 col-sm-2 col-md-2 text-right">
-                            <button type="button" class="btn btn-outline-danger btn-xs">
-                                <i class="fa fa-trash" aria-hidden="true"></i>
+                            <button type="button" class="btn btn-outline-danger btn-xs del-cars" id="'.$k->cars_ID.'">
+                                <i class="fa fa-trash" aria-hidden="true"></i>                         
                             </button>
                         </div>
                     </div>

@@ -5,6 +5,7 @@ class model
 {
     protected $stmt;
     protected $table = '';
+    public $lastInserted;
 
     // Connexion à la DB
     public function __construct()
@@ -64,6 +65,7 @@ class model
     public function query($sql, $data = array()){
         $req = $this->stmt->prepare($sql);
         $req->execute($data);
+        $this->lastInserted = $this->stmt->lastInsertId();
         return $req->fetchAll(PDO::FETCH_OBJ);
     }
 

@@ -8,7 +8,7 @@ error_reporting(E_ALL);
 if (isset($_POST['search'])) {
     $searchCar = $_POST['search'];
     $cars = model::load("cars");
-    $cars->readDB('b.name, c.model, c.color, c.kilometer, c.horsepower, c.unitprice, c.fuel, c.isActive, c.picture, c.year', " CONCAT(b.name, ' ', c.color, ' ', c.model,' ',c.fuel) LIKE '%" . $searchCar . "%'", 'brands b on b.brands_ID = c.brands_ID');
+    $cars->readDB('b.name, c.model, c.color, c.kilometer, c.horsepower, c.unitprice, c.fuel, c.isActive, c.picture, c.year, c.cars_ID', " CONCAT(b.name, ' ', c.color, ' ', c.model,' ',c.fuel) LIKE '%" . $searchCar . "%'", 'brands b on b.brands_ID = c.brands_ID');
     if(!empty($cars->displayCardCars($cars))){
         $cars->displayCardCars($cars);
     } else{

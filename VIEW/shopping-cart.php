@@ -9,7 +9,7 @@
             </div>
             <div class="card-body shop-body">
                 <?php
-                $cars->displayCarstoShop($_SESSION['panier']);
+                $cars->displayCarstoShop($products);
                 ?>
                 <div class="pull-right">
                     <a href="" class="btn btn-outline-secondary pull-right">
@@ -21,7 +21,7 @@
                 <div class="pull-right" style="margin: 10px">
                     <a href="" class="btn btn-success pull-right">Checkout</a>
                     <div class="pull-right" style="margin: 5px">
-                        Prix final: <b>50.00€</b>
+                        Prix final: <b><?= number_format($basket->total($cars), 2, ',', ' ')  ?> €</b>
                     </div>
                 </div>
             </div>

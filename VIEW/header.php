@@ -25,7 +25,7 @@ if(isset($_SESSION['isAdmin'])){
     <script src="../VIEW/js/updateUser.js"></script>
     <script src="../VIEW/js/activateUser.js"></script>
     <script src="../VIEW/js/changePassword.js"></script>
-    <script src="../VIEW/js/fetch_car.js"></script>
+    <script src="../VIEW/js/shoppingCart.js"></script>
     <link rel="stylesheet" href="../VIEW/css/bootstrap.css">
     <link rel="stylesheet" href="../VIEW/css/bootstrap-grid.css">
     <link rel="stylesheet" href="../VIEW/css/bootstrap-reboot.css">
