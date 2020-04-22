@@ -247,7 +247,28 @@ input#searchEmpl {
 }
 
 .pull-right{
-    float: right;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+}
+
+.validate-basket{
+    order: 2;
+}
+
+.pull-right>b{
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.btn-back{
+    width: max-content;
+}
+
+.basket-header{
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
 }
 
 /****************************************** FOOTER ***********************************************************/
