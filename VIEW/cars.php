@@ -4,7 +4,7 @@
 /*$formUploadImage = new Form("POST", "../CONTROL/testInsertImage.php", "imgUpload", "imgUpload" , "multipart/form-data");
 $formUploadImage->setPicture("image");
 $formUploadImage->submit("subImg", "Ajouter image","subImg");*/
-
+var_dump($_SESSION['userID']);
 
 ?>
 <div class="container">

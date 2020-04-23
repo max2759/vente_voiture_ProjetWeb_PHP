@@ -15,4 +15,10 @@ class orders extends model
         $req->bindParam(':pUserID', $UserID, PDO::PARAM_INT);
         $req->execute();
     }
+
+    function insertOrder($usersID){
+        $req = $this->stmt->prepare('CALL insertOrder(:pUsers_ID)');
+        $req->bindParam(':pUsers_ID', $usersID, PDO::PARAM_INT );
+        $req->execute();
+    }
 }

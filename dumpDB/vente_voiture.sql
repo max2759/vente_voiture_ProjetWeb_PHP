@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Apr 14, 2020 at 04:18 PM
+-- Generation Time: Apr 23, 2020 at 02:18 PM
 -- Server version: 5.7.24
 -- PHP Version: 7.2.19
 
@@ -29,8 +29,14 @@ DELIMITER $$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `addUser` (IN `pFirstname` VARCHAR(100), IN `pName` VARCHAR(100), IN `pPassword` VARCHAR(256), IN `pPseudo` VARCHAR(100))  NO SQL
 insert into users(users_ID,roles_ID,firstname,name,password,pseudo,isActive) VALUES(null, 2, pFirstname, pName, pPassword,pPseudo,1)$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sellCar` (IN `pOrderDate` DATE, IN `pPriceUnitOrder` DECIMAL, IN `pUserID` INT)  NO SQL
-insert into orders(orders_ID,order_date,priceUnitOrder,users_ID) VALUES(null,pOrderDate,pPriceUnitOrder,pUserID)$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `insertOrder` (IN `pUsers_ID` INT, IN `pOrders_ID` INT)  NO SQL
+INSERT into orders(orders_ID, users_ID) values (pOrders_ID, pUsers_ID)$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sellCar` (IN `pCarsID` INT, IN `pOrderDate` DATE, IN `pPriceUnitOrder` DECIMAL)  NO SQL
+insert into orders_details(cars_ID,orders_ID, order_date,priceUnitOrder) VALUES(pCarsID,null,pOrderDate,pPriceUnitOrder)$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `updateImage` (IN `pPicture` VARCHAR(255), IN `pCarsID` INT)  NO SQL
+UPDATE cars set picture = pPicture where cars_ID = pCarsID$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `updatePassword` (IN `pPassword` VARCHAR(255), IN `pPseudo` VARCHAR(255))  NO SQL
 UPDATE users SET password = pPassword where pseudo = Pseudo$$
@@ -92,7 +98,7 @@ CREATE TABLE `cars` (
   `isActive` tinyint(1) NOT NULL,
   `year` int(11) NOT NULL,
   `fuel` enum('Essence','Diesel','Hybrid','Plug-in hybrid','Gaz','Electrique') NOT NULL,
-  `picture` mediumblob
+  `picture` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -100,11 +106,11 @@ CREATE TABLE `cars` (
 --
 
 INSERT INTO `cars` (`cars_ID`, `brands_ID`, `model`, `color`, `kilometer`, `horsepower`, `unitprice`, `isActive`, `year`, `fuel`, `picture`) VALUES
-(1, 1, 'Supra', 'Rouge', 10000, 340, '60000', 1, 1999, 'Essence', NULL),
-(2, 2, 'Fiesta 1.0i Trend', 'Gris', 47000, 80, '7999', 0, 2009, 'Diesel', NULL),
-(3, 5, 'BMW 318 Berline', 'Noir', 1, 150, '33000', 1, 2018, 'Diesel', NULL),
-(4, 6, 'Volkswagen Golf VII Trendline', 'Noir', 10, 86, '18750', 1, 2019, 'Essence', NULL),
-(5, 1, 'Toyota Corolla 2.0 Hybrid', 'Rouge', 0, 179, '28500', 1, 2019, 'Hybrid', NULL);
+(1, 1, 'Supra', 'Rouge', 10000, 340, '60000', 1, 1999, 'Essence', 'supra.jpg'),
+(2, 2, 'Fiesta 1.0i Trend', 'Gris', 47000, 80, '7999', 1, 2009, 'Diesel', 'fiesta.jpg'),
+(3, 5, 'BMW 318 Berline', 'Noir', 1, 150, '33000', 1, 2018, 'Diesel', 'bmw.jpg'),
+(4, 6, 'Volkswagen Golf VII Trendline', 'Noir', 10, 86, '18750', 1, 2019, 'Essence', 'golf.jpg'),
+(5, 1, 'Toyota Corolla 2.0 Hybrid', 'Rouge', 0, 179, '28500', 1, 2019, 'Hybrid', 'corolla.jpg');
 
 -- --------------------------------------------------------
 
@@ -114,9 +120,7 @@ INSERT INTO `cars` (`cars_ID`, `brands_ID`, `model`, `color`, `kilometer`, `hors
 
 CREATE TABLE `orders` (
   `orders_ID` int(11) NOT NULL,
-  `users_ID` int(11) NOT NULL,
-  `order_Date` date NOT NULL,
-  `priceUnitOrder` decimal(10,0) NOT NULL
+  `users_ID` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -135,7 +139,9 @@ DELIMITER ;
 
 CREATE TABLE `orders_details` (
   `cars_ID` int(11) NOT NULL,
-  `orders_ID` int(11) NOT NULL
+  `orders_ID` int(11) NOT NULL,
+  `priceUnitOrder` decimal(10,0) NOT NULL,
+  `order_date` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -178,13 +184,13 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`users_ID`, `roles_ID`, `name`, `firstname`, `pseudo`, `password`, `isActive`) VALUES
-(11, 1, 'Zabbara', 'Maximilien', 'maxzab', '$2y$10$8EU48vipo.nXAgsdR4WWxOhLgdsPRE0T8RW8XE8IB5tOF2FPeB8Ae', 1),
+(11, 1, 'Zabbara', 'Maximilien', 'maxzab', '$2y$10$.dKgT4fJOAwHhP26i1zr6.mtYPQar8/47xsRxtCExINMhSqnvB1E.', 1),
 (12, 2, 'Eude', 'Jean', 'eudjea', '$2y$10$8EU48vipo.nXAgsdR4WWxOhLgdsPRE0T8RW8XE8IB5tOF2FPeB8Ae', 1),
 (14, 1, 'Conreur', 'Valentin', 'valcon', '$2y$10$8EU48vipo.nXAgsdR4WWxOhLgdsPRE0T8RW8XE8IB5tOF2FPeB8Ae', 1),
 (15, 2, 'Wicky', 'John', 'wicjoh', '$2y$10$8EU48vipo.nXAgsdR4WWxOhLgdsPRE0T8RW8XE8IB5tOF2FPeB8Ae', 1),
 (16, 2, 'Balboa', 'Rocky', 'balroc', '$2y$10$8EU48vipo.nXAgsdR4WWxOhLgdsPRE0T8RW8XE8IB5tOF2FPeB8Ae', 1),
 (17, 2, 'Smith', 'Mortimer', 'smimor', '$2y$10$8EU48vipo.nXAgsdR4WWxOhLgdsPRE0T8RW8XE8IB5tOF2FPeB8Ae', 1),
-(19, 2, 'Tyson', 'Mike', 'miktys', '$2y$10$8EU48vipo.nXAgsdR4WWxOhLgdsPRE0T8RW8XE8IB5tOF2FPeB8Ae', 0),
+(19, 2, 'Tyson', 'Mike', 'miktys', '$2y$10$8EU48vipo.nXAgsdR4WWxOhLgdsPRE0T8RW8XE8IB5tOF2FPeB8Ae', 1),
 (20, 2, 'Sanchez', 'Rick', 'sanric', '$2y$10$8EU48vipo.nXAgsdR4WWxOhLgdsPRE0T8RW8XE8IB5tOF2FPeB8Ae', 0);
 
 --
@@ -251,7 +257,7 @@ ALTER TABLE `cars`
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `orders_ID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `orders_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT for table `roles`
