@@ -4,7 +4,8 @@
 /*$formUploadImage = new Form("POST", "../CONTROL/testInsertImage.php", "imgUpload", "imgUpload" , "multipart/form-data");
 $formUploadImage->setPicture("image");
 $formUploadImage->submit("subImg", "Ajouter image","subImg");*/
-var_dump($_SESSION['userID']);
+
+$formAddCars = new Form("POST", "", "addCars", "addCars", "multipart/form-data");
 
 ?>
 <div class="container">
@@ -19,7 +20,7 @@ var_dump($_SESSION['userID']);
         unset($_SESSION['errors']);
     }
 
-    /*
+    /**
     * Message pour avertir que la vente a bien été réalisée
     */
     if(isset($_SESSION['successCar'])){
@@ -65,11 +66,11 @@ var_dump($_SESSION['userID']);
 
         <hr style="width: 100%">
         <!-- Button trigger modal -->
-        <!--<div class="add-box">
+        <div class="add-box">
             <button type="button" class="btn btn-info col-auto" data-backdrop="static" data-toggle="modal" data-target="#modalAddCars">
-                Ajouter
+                <i class="far fa-plus-square"></i> Ajouter
             </button>
-        </div>-->
+        </div>
     </div>
 
     <!-- Display Car -->
@@ -81,7 +82,7 @@ var_dump($_SESSION['userID']);
 </div>
 
     <!-- Modal addCars-->
-    <!--<div class="modal fade" id="modalAddCars" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal fade" id="modalAddCars" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -91,31 +92,12 @@ var_dump($_SESSION['userID']);
                     </button>
                 </div>
                 <div class="modal-body">
-
+                    test
                 </div>
 
             </div>
         </div>
-    </div>-->
-
-    <!-- Modal sellCar-->
-    <!--<div class="modal fade" id="modalSellCar" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
-         aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLongTitle">Information du véhicule</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-
-                </div>
-
-            </div>
-        </div>
-    </div>-->
+    </div>
 
 </div>
 

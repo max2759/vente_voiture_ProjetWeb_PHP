@@ -10,13 +10,13 @@ $users = model::load("users");
 // récupère value du radio et fait une requête en fonction du choix tous, actif, inactif
 if ($value == 'option1') {
 
-    $users->readDB('u.users_ID, u.name, u.firstname, u.pseudo, r.label, u.isActive', '', 'roles r on r.roles_ID = u.roles_ID');
+    $users->readDB('u.users_ID, u.name, u.firstname, u.pseudo, r.label, u.isActive, u.roles_ID', '', 'roles r on r.roles_ID = u.roles_ID');
     $users->displayLoopResult($users);
 
 
 } elseif ($value == 'option2') {
 
-    $users->readDB('u.users_ID, u.name, u.firstname, u.pseudo, r.label, u.isActive', 'u.isActive = 1', 'roles r on r.roles_ID = u.roles_ID');
+    $users->readDB('u.users_ID, u.name, u.firstname, u.pseudo, r.label, u.isActive, u.roles_ID', 'u.isActive = 1', 'roles r on r.roles_ID = u.roles_ID');
     $users->displayLoopResult($users);
     /*$req2 = $users->readDB('u.users_ID, u.name, u.firstname, u.pseudo, r.label, u.isActive','u.isActive = 1', 'roles r on r.roles_ID = u.roles_ID');
 
@@ -29,7 +29,7 @@ if ($value == 'option1') {
 
 } else {
 
-    $users->readDB('u.users_ID, u.name, u.firstname, u.pseudo, r.label, u.isActive', 'u.isActive = 0', 'roles r on r.roles_ID = u.roles_ID');
+    $users->readDB('u.users_ID, u.name, u.firstname, u.pseudo, r.label, u.isActive, u.roles_ID', 'u.isActive = 0', 'roles r on r.roles_ID = u.roles_ID');
 
     $users->displayLoopResult($users);
 

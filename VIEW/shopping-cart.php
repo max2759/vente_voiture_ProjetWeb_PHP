@@ -1,3 +1,9 @@
+<?php
+
+$form = new Form("POST", "#", "promoForm", "promoForm");
+$form->setNumber("Réduction", "promoField", "promoField");
+
+?>
 <div class="container">
     <div class="container">
         <div class="card shopping-cart card-custom">
@@ -15,17 +21,13 @@
                 <?php
                 $cars->displayCarstoShop($products);
                 ?>
-                <div class="pull-right">
-                    <a href="" class="btn btn-outline-secondary pull-right">
-                        Mettre à jour le panier
-                    </a>
-                </div>
             </div>
             <div class="card-footer">
                 <div class="pull-right" style="margin: 10px">
                     <a href="" class="btn btn-success validate-basket pull-right">Valider</a>
                     <div class="pull-right" style="margin: 5px">
-                        Prix final: <b> <?= number_format($basket->total($cars), 2, ',', ' ')  ?> €</b>
+                        Prix final: <b id="finalPriceSum"> <?= number_format($basket->total($cars), 2, ',', ' ')  ?> €</b>
+                        <!--<span id="finalPriceSum"></span>-->
                     </div>
                 </div>
             </div>

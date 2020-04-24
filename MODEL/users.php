@@ -19,7 +19,13 @@ class users extends model
             echo '<td>'.$k->name.'</td>';
             echo '<td>'.$k->firstname.'</td>';
             echo '<td>'.$k->pseudo.'</td>';
-            echo '<td>'.$k->label.'</td>';
+
+            if($k->roles_ID == 1){
+                echo '<td>'.$k->label.'</td>';
+            }else{
+                echo '<td> Employé </td>';
+            }
+
             if($k->isActive == 1){
                 echo '<td><button type="button" class="btn btn-warning btn-sm update" id="user-'.$k->users_ID.'"><i class="far fa-edit"></i></button></td>';
             }else{
