@@ -39,4 +39,16 @@ class shoppingCart
 
         return $total;
     }
+
+    public function countCart(){
+        $itemCount = 0;
+
+        if(isset($_SESSION['panier'])){
+            $itemCount = count($_SESSION['panier']);
+        }else{
+            $itemCount = 0;
+        }
+
+        return $itemCount;
+    }
 }

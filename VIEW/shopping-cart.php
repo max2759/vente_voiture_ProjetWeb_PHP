@@ -18,8 +18,13 @@ $form->setNumber("Réduction", "promoField", "promoField");
 
             </div>
             <div class="card-body shop-body">
+
                 <?php
-                $cars->displayCarstoShop($products);
+                    if(!empty($products)){
+                        $cars->displayCarstoShop($products);
+                    }else{
+                        echo '<h1> Panier vide </h1>';
+                    }
                 ?>
             </div>
             <div class="card-footer">
