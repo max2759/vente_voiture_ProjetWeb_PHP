@@ -35,7 +35,7 @@ if(isset($_SESSION['isAdmin'])){
     <link rel="icon" href="../VIEW/img/favicon.ico" type="image/x-icon">
 </head>
 <body class="bg-light">
-
+<button id="myBtn" title="Remonter"><i class="fas fa-arrow-up"></i></button>
 <?php
 
 if(isset($_SESSION['isAdmin'])) {

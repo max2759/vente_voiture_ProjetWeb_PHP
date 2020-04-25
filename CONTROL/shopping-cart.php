@@ -10,6 +10,13 @@ if (isset($_SESSION['isAdmin'])) {
     require('../VIEW/header.php');
     $basket = model::load("shoppingCart");
     $cars = model::load("cars");
+    $orders = model::load('orders');
+    $idUser =  $_SESSION['userID'];
+
+    $orderID = $orders->query('SELECT orders_ID FROM orders where users_ID ='.$idUser.' AND basket = 1');
+
+
+
     $productsID = array_keys($_SESSION['panier']);
     // Permet d'éviter l'erreur sql lorsqu'il n'y a plus de produit dans le panier
     if(empty($productsID)){
