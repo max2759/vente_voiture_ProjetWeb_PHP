@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Apr 23, 2020 at 02:18 PM
+-- Generation Time: Apr 28, 2020 at 12:25 PM
 -- Server version: 5.7.24
 -- PHP Version: 7.2.19
 
@@ -26,17 +26,17 @@ DELIMITER $$
 --
 -- Procedures
 --
+CREATE DEFINER=`root`@`localhost` PROCEDURE `addCar` (IN `pBrandsId` INT, IN `pModel` VARCHAR(255), IN `pColor` VARCHAR(255), IN `pKm` INT, IN `pFuel` VARCHAR(255), IN `pHorsepower` INT, IN `pUnitprice` INT, IN `pYear` INT, IN `pPicture` VARCHAR(255))  NO SQL
+insert into cars(cars_ID, brands_ID, model ,color, kilometer,fuel,horsepower,unitprice,isActive, year, picture) VALUES(null, pBrandsID, pModel ,pColor, pKm, pFuel, pHorsepower,pUnitprice, 1, pYear, pPicture)$$
+
 CREATE DEFINER=`root`@`localhost` PROCEDURE `addUser` (IN `pFirstname` VARCHAR(100), IN `pName` VARCHAR(100), IN `pPassword` VARCHAR(256), IN `pPseudo` VARCHAR(100))  NO SQL
 insert into users(users_ID,roles_ID,firstname,name,password,pseudo,isActive) VALUES(null, 2, pFirstname, pName, pPassword,pPseudo,1)$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `insertOrder` (IN `pUsers_ID` INT, IN `pOrders_ID` INT)  NO SQL
-INSERT into orders(orders_ID, users_ID) values (pOrders_ID, pUsers_ID)$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `insertOrder` (IN `pUsers_ID` INT, IN `pOrder_date` DATE)  NO SQL
+INSERT into orders(orders_ID, users_ID, order_date, state) values (null, pUsers_ID, pOrder_date, "attente")$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sellCar` (IN `pCarsID` INT, IN `pOrderDate` DATE, IN `pPriceUnitOrder` DECIMAL)  NO SQL
-insert into orders_details(cars_ID,orders_ID, order_date,priceUnitOrder) VALUES(pCarsID,null,pOrderDate,pPriceUnitOrder)$$
-
-CREATE DEFINER=`root`@`localhost` PROCEDURE `updateImage` (IN `pPicture` VARCHAR(255), IN `pCarsID` INT)  NO SQL
-UPDATE cars set picture = pPicture where cars_ID = pCarsID$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `insertOrderDetails` (IN `pCars_ID` INT, IN `pOrders_ID` INT, IN `pPriceUnitOrder` FLOAT)  NO SQL
+INSERT INTO orders_details(cars_ID, orders_ID, priceUnitOrder) values (pCars_ID, pOrders_ID, pPriceUnitOrder)$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `updatePassword` (IN `pPassword` VARCHAR(255), IN `pPseudo` VARCHAR(255))  NO SQL
 UPDATE users SET password = pPassword where pseudo = Pseudo$$
@@ -97,7 +97,7 @@ CREATE TABLE `cars` (
   `unitprice` decimal(10,0) NOT NULL,
   `isActive` tinyint(1) NOT NULL,
   `year` int(11) NOT NULL,
-  `fuel` enum('Essence','Diesel','Hybrid','Plug-in hybrid','Gaz','Electrique') NOT NULL,
+  `fuel` enum('Essence','Diesel','Hybrid','Plug-in','Gaz','Electrique') NOT NULL,
   `picture` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -110,7 +110,10 @@ INSERT INTO `cars` (`cars_ID`, `brands_ID`, `model`, `color`, `kilometer`, `hors
 (2, 2, 'Fiesta 1.0i Trend', 'Gris', 47000, 80, '7999', 1, 2009, 'Diesel', 'fiesta.jpg'),
 (3, 5, 'BMW 318 Berline', 'Noir', 1, 150, '33000', 1, 2018, 'Diesel', 'bmw.jpg'),
 (4, 6, 'Volkswagen Golf VII Trendline', 'Noir', 10, 86, '18750', 1, 2019, 'Essence', 'golf.jpg'),
-(5, 1, 'Toyota Corolla 2.0 Hybrid', 'Rouge', 0, 179, '28500', 1, 2019, 'Hybrid', 'corolla.jpg');
+(7, 8, 'Peugeot 307', 'Gris', 240000, 147, '2250', 1, 2006, 'Gaz', 'PEUGEOT-307.jpg'),
+(8, 3, 'Kia cee\'d', 'Argent', 80237, 101, '7999', 1, 2014, 'Essence', 'kia ceed.jpg'),
+(10, 9, 'Fiat 500', 'Rouge', 10000, 80, '5000', 1, 2010, 'Diesel', 'fiat500.jpg'),
+(11, 7, 'Audi A4', 'Gris', 183000, 136, '8950', 1, 2011, 'Diesel', 'audiA4.jpg');
 
 -- --------------------------------------------------------
 
@@ -120,16 +123,17 @@ INSERT INTO `cars` (`cars_ID`, `brands_ID`, `model`, `color`, `kilometer`, `hors
 
 CREATE TABLE `orders` (
   `orders_ID` int(11) NOT NULL,
-  `users_ID` int(11) NOT NULL
+  `users_ID` int(11) NOT NULL,
+  `order_date` date DEFAULT NULL,
+  `state` enum('attente','valider','annuler') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Triggers `orders`
+-- Dumping data for table `orders`
 --
-DELIMITER $$
-CREATE TRIGGER `insertOD` AFTER INSERT ON `orders` FOR EACH ROW insert into orders_details(orders_ID, cars_ID) VALUES ((select orders_ID FROM orders), (SELECT cars_ID FROM cars))
-$$
-DELIMITER ;
+
+INSERT INTO `orders` (`orders_ID`, `users_ID`, `order_date`, `state`) VALUES
+(77, 11, '2020-04-28', 'attente');
 
 -- --------------------------------------------------------
 
@@ -138,10 +142,9 @@ DELIMITER ;
 --
 
 CREATE TABLE `orders_details` (
-  `cars_ID` int(11) NOT NULL,
   `orders_ID` int(11) NOT NULL,
-  `priceUnitOrder` decimal(10,0) NOT NULL,
-  `order_date` date NOT NULL
+  `cars_ID` int(11) NOT NULL,
+  `priceUnitOrder` float NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -191,7 +194,8 @@ INSERT INTO `users` (`users_ID`, `roles_ID`, `name`, `firstname`, `pseudo`, `pas
 (16, 2, 'Balboa', 'Rocky', 'balroc', '$2y$10$8EU48vipo.nXAgsdR4WWxOhLgdsPRE0T8RW8XE8IB5tOF2FPeB8Ae', 1),
 (17, 2, 'Smith', 'Mortimer', 'smimor', '$2y$10$8EU48vipo.nXAgsdR4WWxOhLgdsPRE0T8RW8XE8IB5tOF2FPeB8Ae', 1),
 (19, 2, 'Tyson', 'Mike', 'miktys', '$2y$10$8EU48vipo.nXAgsdR4WWxOhLgdsPRE0T8RW8XE8IB5tOF2FPeB8Ae', 1),
-(20, 2, 'Sanchez', 'Rick', 'sanric', '$2y$10$8EU48vipo.nXAgsdR4WWxOhLgdsPRE0T8RW8XE8IB5tOF2FPeB8Ae', 0);
+(20, 2, 'Sanchez', 'Rick', 'sanric', '$2y$10$8EU48vipo.nXAgsdR4WWxOhLgdsPRE0T8RW8XE8IB5tOF2FPeB8Ae', 1),
+(21, 2, 'Senna', 'Ayrton', 'senayr', '$2y$10$AcVhbALrpdEx..sZ1p8EHeQT4juFon2rd6LpMkoWx4dykuGbP6RLy', 1);
 
 --
 -- Indexes for dumped tables
@@ -221,8 +225,8 @@ ALTER TABLE `orders`
 -- Indexes for table `orders_details`
 --
 ALTER TABLE `orders_details`
-  ADD KEY `cars_ID` (`cars_ID`),
-  ADD KEY `orders_ID` (`orders_ID`);
+  ADD PRIMARY KEY (`orders_ID`,`cars_ID`),
+  ADD KEY `FK_cars_ID` (`cars_ID`);
 
 --
 -- Indexes for table `roles`
@@ -251,13 +255,13 @@ ALTER TABLE `brands`
 -- AUTO_INCREMENT for table `cars`
 --
 ALTER TABLE `cars`
-  MODIFY `cars_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `cars_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `orders_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `orders_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=78;
 
 --
 -- AUTO_INCREMENT for table `roles`
@@ -269,7 +273,7 @@ ALTER TABLE `roles`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `users_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `users_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- Constraints for dumped tables
@@ -291,8 +295,8 @@ ALTER TABLE `orders`
 -- Constraints for table `orders_details`
 --
 ALTER TABLE `orders_details`
-  ADD CONSTRAINT `orders_details_ibfk_1` FOREIGN KEY (`cars_ID`) REFERENCES `cars` (`cars_ID`),
-  ADD CONSTRAINT `orders_details_ibfk_2` FOREIGN KEY (`orders_ID`) REFERENCES `orders` (`orders_ID`) ON UPDATE CASCADE;
+  ADD CONSTRAINT `FK_cars_ID` FOREIGN KEY (`cars_ID`) REFERENCES `cars` (`cars_ID`),
+  ADD CONSTRAINT `FK_orders_ID` FOREIGN KEY (`orders_ID`) REFERENCES `orders` (`orders_ID`);
 
 --
 -- Constraints for table `users`
