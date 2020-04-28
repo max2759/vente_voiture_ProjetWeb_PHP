@@ -1,7 +1,7 @@
 <?php
 
 $form = new Form("POST", "#", "promoForm", "promoForm");
-$form->setNumber("Réduction", "promoField", "promoField");
+$form->setNumber("Réduction", "promoField", "promoField", "","100","100", "", "");
 
 ?>
 <div class="container">
@@ -21,7 +21,7 @@ $form->setNumber("Réduction", "promoField", "promoField");
 
                 <?php
                     if(!empty($products)){
-                        $cars->displayCarstoShop($products);
+                        $orderDetails->displayCarstoShop($products);
                     }else{
                         echo '<h1> Panier vide </h1>';
                     }

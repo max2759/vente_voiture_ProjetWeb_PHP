@@ -1,35 +1,47 @@
 <?php
 
 /*** Form Add Car ***/
-/*$formUploadImage = new Form("POST", "../CONTROL/testInsertImage.php", "imgUpload", "imgUpload" , "multipart/form-data");
-$formUploadImage->setPicture("image");
-$formUploadImage->submit("subImg", "Ajouter image","subImg");*/
 
-$formAddCars = new Form("POST", "", "addCars", "addCars", "multipart/form-data");
+$year= Date('Y');
+
+$formAddCars = new Form("POST", "../CONTROL/addCar.php", "addCars", "addCars", "multipart/form-data");
+$formAddCars->setOptionBrands("Marque", "brands", "brands");
+$formAddCars->setText("Modèle", "modèle", "model","model");
+$formAddCars->setText("Couleur", "couleur", "color","color");
+$formAddCars->setNumber("Kilométrage", "km", "km","kilométrage","0", "1","","");
+$formAddCars->setNumber("Chevaux", "cv", "cv","chevaux","1", "1", "", "5000");
+$formAddCars->setNumber("Prix de vente", "price","price", "prix&nbsp;de&nbsp;vente", "100", "1", "", "");
+$formAddCars->setNumber("Année", "yearCar", "yearCar", "Année", "1900", "1",$year, $year);
+$formAddCars->setOptionFuel("Carburant", "fuel", "fuel");
+$formAddCars->setPicture("image");
+$formAddCars->modalSend("submitCars","submitCars","disabled");
 
 ?>
 <div class="container">
 
     <?php
     /**
-     * Message d'erreur vente voiture via le back end php
+     * Message d'erreur ajout voiture via le back end php
      */
     if (isset($_SESSION['errorCar'])) {
         $msg = $_SESSION['errorCar'];
-        echo '<div class="alert alert-danger">' . $msg . '</div>';
+        echo '<div class="alert alert-danger errorCar">' . $msg . '</div>';
         unset($_SESSION['errors']);
+
     }
 
     /**
-    * Message pour avertir que la vente a bien été réalisée
+    * Message pour avertir que l'ajout a bien été réalisée
     */
     if(isset($_SESSION['successCar'])){
         $msg = $_SESSION['successCar'];
-        echo '<div class="alert alert-success">' . $msg . '</div>';
+        echo '<div class="alert alert-success successCar">' . $msg . '</div>';
         unset($_SESSION['successCar']);
+
     }
 
     ?>
+
 <div class="col car-page">
     <div class="row search-tool-car">
         <!--Radio button-->
@@ -92,7 +104,9 @@ $formAddCars = new Form("POST", "", "addCars", "addCars", "multipart/form-data")
                     </button>
                 </div>
                 <div class="modal-body">
-                    test
+                    <?php
+                    $formAddCars->getForm();
+                    ?>
                 </div>
 
             </div>

@@ -68,6 +68,7 @@ $(document).ready(function (){
 
         if(oldPass.val() !=="" && newPass.val() !=="" && newPass2.val() !==""){
             if(!($('.oldPassAlert').length) && !($('.passwordChangeAlert').length)){
+
                 $('#validateChangePassword').prop("disabled", false);
             }else{
                 $('#validateChangePassword').prop("disabled", true);

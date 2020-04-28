@@ -5,17 +5,45 @@ require_once('core.php');
 $cars = model::load('cars');
 $basket = model::load('shoppingCart');
 $orders = model::load('orders');
+$orderDetails = model::load('orderDetails');
 $usersID = $_SESSION['userID'];
 $carsID = $_POST['carsId'];
+$cars->readDB('c.unitprice', 'c.cars_ID ='.$carsID.'');
+$orders->readDB('o.state',"users_ID =".$usersID."");
+$status = $orders->data;
+$unitprice = $cars->data;
 
-if(isset($carsID)){
-    $products = $cars->query('SELECT b.name, c.cars_ID, c.model, c.picture, c.unitprice from cars c inner join brands b on b.brands_ID = c.brands_ID where c.cars_ID = :cars_ID', array('cars_ID'=>$carsID));
+if(isset($carsID) && isset($usersID)){
 
-    $basket->add($products[0]->cars_ID);
+    if($status = "attente"){
+        $orders->readDB('orders_ID', 'users_ID ='.$usersID.'');
+        $orderID = $orders->data;
 
-    $orders->insertOrder($usersID);
+        $orderDetails->insertOrderDetails($carsID, $orderID, $unitprice);
+    }else{
+        $orders->insertOrder($usersID);
+    }
+
+
+
+
+
+
+
+    /*$orderDetails->insertOrderDetails($carsID, $)
+    if($orders->readDB('o.state', 'o.state = 1')){
+        $orderID = $orders->readDB('o.orders_ID');
+        $orderDetails->insertOrderDetails($carsID, $orderID, $unitPrice);
+    }else{
+        $orders->insertOrder($usersID);
+        $orderID = $orders->readDB('o.orders_ID');
+        $orderDetails->insertOrderDetails($carsID, $orderID, $unitPrice);
+    }
+
+    $products = $orderDetails->query('SELECT * FROM orders_details od INNER JOIN cars c ON c.cars_ID = od.cars_ID');*/
 
 }
+
 
 
 

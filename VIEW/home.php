@@ -18,6 +18,38 @@
         unset($_SESSION['successpwd']);
     }
     ?>
+    <div class="container my-4">
+        <h2>Dernier ajout</h2>
+        <hr class="my-4">
+
+        <!--Carousel Wrapper-->
+        <div id="multi-item-example" class="carousel slide carousel-multi-item" data-ride="carousel">
+
+            <!--Slides-->
+            <div class="carousel-inner" role="listbox">
+
+                <!--First slide-->
+                <div class="carousel-item active">
+
+                    <div class="row">
+                        <?php
+                        $cars->displayCarousel($cars)
+                        ?>
+                    </div>
+
+                </div>
+                <!--/.First slide-->
+
+            </div>
+            <!--/.Slides-->
+
+        </div>
+        <!--/.Carousel Wrapper-->
+
+
+    </div>
+
+
 </div>
 
 

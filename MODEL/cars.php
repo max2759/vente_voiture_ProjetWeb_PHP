@@ -6,6 +6,31 @@ class cars extends model
     var $table = 'cars c';
     var $data;
 
+    function displayCarousel($cars){
+
+        for($i = 0; $i<3; $i++)
+        {
+            echo '<div class="col-md-4">
+                            <div class="card mb-2">
+                                <img class="card-img-top" src="../VIEW/img/'.$cars->data[$i]->picture.'"
+                                     alt="Card image cap">
+                                <div class="card-body">
+                                    <h4 class="card-title">'.$cars->data[$i]->model.'</h4>
+                                    <p class="card-text">
+                                    <ul class="list-group list-group-flush">
+                                    <li class="list-group-item"><i class="fas fa-euro-sign"></i></i> '.number_format($cars->data[$i]->unitprice, 2, ',', ' ').'</li>
+                                    <li class="list-group-item"><i class="fas fa-road"></i></i> '.number_format($cars->data[$i]->kilometer, 2, ',', ' ').' Km</li>
+                                    <li class="list-group-item"><i class="fas fa-gas-pump"></i> ' . $cars->data[$i]->fuel . '</li>
+                                    </ul>
+                                        </p>
+                                    <a href="../CONTROL/cars.php" class="btn btn-warning"><i class="far fa-eye"></i></a>
+                                </div>
+                            </div>
+                        </div>';
+        };
+
+    }
+
     function displayCardCars($cars)
     {
         foreach ($cars->data as $k) {
@@ -82,11 +107,20 @@ class cars extends model
         }
     }
 
-    function updateImage($picture, $carsID){
-        $req= $this->stmt->prepare('CALL updateImage(:pPicture, :pCarsID)');
+    function addCar($brandsID, $model, $color, $km ,$fuel, $horsepower, $unitPrice,$year, $picture){
+        $req= $this->stmt->prepare('CALL addCar(:pBrandsId,:pModel,:pColor,:pKm, :pFuel, :pHorsepower, :pUnitprice, :pYear, :pPicture)');
+        $req->bindParam(":pBrandsId", $brandsID, PDO::PARAM_INT);
+        $req->bindParam(":pModel", $model, PDO::PARAM_STR, 255);
+        $req->bindParam(":pColor", $color, PDO::PARAM_STR, 255);
+        $req->bindParam(":pKm", $km, PDO::PARAM_INT);
+        $req->bindParam(":pFuel", $fuel, PDO::PARAM_STR);
+        $req->bindParam(":pHorsepower", $horsepower, PDO::PARAM_INT);
+        $req->bindParam(":pUnitprice", $unitPrice, PDO::PARAM_INT);
+        $req->bindParam(":pYear", $year, PDO::PARAM_INT);
         $req->bindParam(":pPicture", $picture, PDO::PARAM_STR, 255);
-        $req->bindParam(":pCarsID", $carsID, PDO::PARAM_INT);
         $req->execute();
+
     }
+
 
 }
