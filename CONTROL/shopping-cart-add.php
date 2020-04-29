@@ -9,37 +9,29 @@ $orderDetails = model::load('orderDetails');
 $usersID = $_SESSION['userID'];
 $carsID = $_POST['carsId'];
 $cars->readDB('c.unitprice', 'c.cars_ID ='.$carsID.'');
-$orders->readDB('o.state',"users_ID =".$usersID."");
-$status = $orders->data;
-$unitprice = $cars->data;
+$orders->readDB('',"users_ID =".$usersID." and state = 'attente'");
+$unitprice = $cars->data[0]->unitprice;
 
 if(isset($carsID) && isset($usersID)){
 
-    if($status = "attente"){
-        $orders->readDB('orders_ID', 'users_ID ='.$usersID.'');
-        $orderID = $orders->data;
+    if(!empty($orders->data)){
+
+        $orderID = $orders->data[0]->orders_ID;
 
         $orderDetails->insertOrderDetails($carsID, $orderID, $unitprice);
+
     }else{
         $orders->insertOrder($usersID);
+
+        $orders->readDB('',"users_ID =".$usersID." and state = 'attente'");
+
+        $orderID = $orders->data[0]->orders_ID;
+
+        $orderDetails->insertOrderDetails($carsID, $orderID, $unitprice);
     }
 
 
-
-
-
-
-
-    /*$orderDetails->insertOrderDetails($carsID, $)
-    if($orders->readDB('o.state', 'o.state = 1')){
-        $orderID = $orders->readDB('o.orders_ID');
-        $orderDetails->insertOrderDetails($carsID, $orderID, $unitPrice);
-    }else{
-        $orders->insertOrder($usersID);
-        $orderID = $orders->readDB('o.orders_ID');
-        $orderDetails->insertOrderDetails($carsID, $orderID, $unitPrice);
-    }
-
+    /*
     $products = $orderDetails->query('SELECT * FROM orders_details od INNER JOIN cars c ON c.cars_ID = od.cars_ID');*/
 
 }

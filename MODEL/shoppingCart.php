@@ -24,14 +24,14 @@ class shoppingCart
         unset($_SESSION['panier'][$carsID]);
     }
 
-    public function total($cars){
+    public function total($orderDetails){
         $total = 0;
         $productsID = array_keys($_SESSION['panier']);
         // Permet d'éviter l'erreur sql lorsqu'il n'y a plus de produit dans le panier
         if(empty($productsID)){
             $products = array();
         }else{
-            $products = $cars->query('SELECT c.cars_ID, c.unitprice from cars c where c.cars_ID IN ('.implode(',',$productsID).')');
+            $products = $orderDetails->query('SELECT c.cars_ID, od.priceUnitOrder from orders_details od where od.cars_ID IN ('.implode(',',$productsID).')');
         }
         foreach($products as $product){
             $total += $product->unitprice;

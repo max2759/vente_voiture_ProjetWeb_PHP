@@ -9,17 +9,14 @@ if (isset($_SESSION['isAdmin'])) {
     require('../VIEW/Form.php');
     require('../VIEW/header.php');
     $basket = model::load("shoppingCart");
-    $cars = model::load("cars");
-    $orders = model::load('orders');
-    $idUser =  $_SESSION['userID'];
+    $orderDetails = model::load('orderDetails');
+    $usersID = $_SESSION['userID'];
 
-    $productsID = array_keys($_SESSION['panier']);
-    // Permet d'éviter l'erreur sql lorsqu'il n'y a plus de produit dans le panier
-    if(empty($productsID)){
-        $products = array();
-    }else{
-        $products = $cars->query('SELECT b.name, c.cars_ID, c.model, c.picture, c.unitprice from cars c inner join brands b on b.brands_ID = c.brands_ID where c.cars_ID IN ('.implode(',',$productsID).')');
-    }
+    $orderDetails->readDB('c.model, c.picture, od.priceUnitOrder, od.cars_ID, b.name, od.orders_ID', "o.users_ID ='.$usersID.'", 'cars c on c.cars_ID = od.cars_ID inner join brands b on b.brands_ID = c.brands_ID inner join orders o on o.orders_ID = od.orders_ID');
+
+    $_SESSION['panier'] =$orderDetails->data;
+
+
 
     require('../VIEW/shopping-cart.php');
     require('../VIEW/footer.php');

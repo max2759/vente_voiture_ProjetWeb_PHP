@@ -17,6 +17,7 @@
         echo '<div class="alert alert-success">' . $msgSuccess . '</div>';
         unset($_SESSION['successpwd']);
     }
+
     ?>
     <div class="container my-4">
         <h2>Dernier ajout</h2>

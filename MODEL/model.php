@@ -65,11 +65,21 @@ class model
      * @param $sql
      * @return array
      */
-
     public function query($sql, $data = array()){
         $req = $this->stmt->prepare($sql);
         $req->execute($data);
         return $req->fetchAll(PDO::FETCH_OBJ);
+    }
+
+    /**
+     * Retourne le nombre de row d'une table selon une requête passée
+     * @param $query
+     * @return int
+     */
+    public function rowCount($query){
+        $req = $this->stmt->prepare($query);
+        $req->execute();
+        return $req->rowCount();
     }
 
     static function load($nom){

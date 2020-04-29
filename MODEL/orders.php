@@ -12,4 +12,10 @@ class orders extends model
         $req->bindValue(':pOrderDate', date('Y-m-d'),PDO::PARAM_STR);
         $req->execute();
     }
+
+    function deleteOrder($orderID){
+        $req = $this->stmt->prepare('CALL deleteOrder(:pOrdersID)');
+        $req->bindParam(':pOrdersID', $orderID, PDO::PARAM_INT );
+        $req->execute();
+    }
 }

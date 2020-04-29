@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Apr 28, 2020 at 12:25 PM
+-- Generation Time: Apr 29, 2020 at 02:31 PM
 -- Server version: 5.7.24
 -- PHP Version: 7.2.19
 
@@ -31,6 +31,12 @@ insert into cars(cars_ID, brands_ID, model ,color, kilometer,fuel,horsepower,uni
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `addUser` (IN `pFirstname` VARCHAR(100), IN `pName` VARCHAR(100), IN `pPassword` VARCHAR(256), IN `pPseudo` VARCHAR(100))  NO SQL
 insert into users(users_ID,roles_ID,firstname,name,password,pseudo,isActive) VALUES(null, 2, pFirstname, pName, pPassword,pPseudo,1)$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `deleteOrder` (IN `pOrdersID` INT)  NO SQL
+UPDATE orders set state = 3 where orders_ID = pOrdersID$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `deleteOrderDetails` (IN `pCarsID` INT)  NO SQL
+DELETE FROM orders_details where cars_ID = pCarsID$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `insertOrder` (IN `pUsers_ID` INT, IN `pOrder_date` DATE)  NO SQL
 INSERT into orders(orders_ID, users_ID, order_date, state) values (null, pUsers_ID, pOrder_date, "attente")$$
@@ -133,7 +139,12 @@ CREATE TABLE `orders` (
 --
 
 INSERT INTO `orders` (`orders_ID`, `users_ID`, `order_date`, `state`) VALUES
-(77, 11, '2020-04-28', 'attente');
+(78, 11, '2020-04-28', 'annuler'),
+(79, 15, '2020-04-29', 'annuler'),
+(80, 15, '2020-04-29', 'annuler'),
+(81, 11, '2020-04-29', 'annuler'),
+(82, 15, '2020-04-29', 'annuler'),
+(83, 15, '2020-04-29', 'attente');
 
 -- --------------------------------------------------------
 
@@ -146,6 +157,15 @@ CREATE TABLE `orders_details` (
   `cars_ID` int(11) NOT NULL,
   `priceUnitOrder` float NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `orders_details`
+--
+
+INSERT INTO `orders_details` (`orders_ID`, `cars_ID`, `priceUnitOrder`) VALUES
+(83, 1, 60000),
+(83, 2, 7999),
+(83, 4, 18750);
 
 -- --------------------------------------------------------
 
@@ -261,7 +281,7 @@ ALTER TABLE `cars`
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `orders_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=78;
+  MODIFY `orders_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=84;
 
 --
 -- AUTO_INCREMENT for table `roles`

@@ -13,7 +13,7 @@ $(document).ready(function(){
                 setTimeout(function(){
                     if ($('.add-basket-success').length > 0) {
                         $('.add-basket-success').remove();
-                        /*location.reload();*/
+                        location.reload();
                     }
                 }, 3000)
             }
@@ -23,18 +23,20 @@ $(document).ready(function(){
     // Supprime la voiture grâce à l'id passer dans le bouton delete
     $('.del-cars').on('click', function(){
         var carsID = this.id;
+        var orderID = $('#orderID').html();
+
         $.ajax({
             url:'../CONTROL/shopping-cart-delete.php',
             method:'POST',
-            data:{carsID:carsID},
+            data:{carsID:carsID, orderID:orderID},
             success:function(){
-                location.reload();
                 $('<div class="alert alert-danger del-basket-success"><i class="fas fa-cart-arrow-down"></i> Voiture supprimée !</div>').prependTo('.card-custom');
                 setTimeout(function(){
                     if ($('.del-basket-success').length > 0) {
                         $('.del-basket-success').remove();
+                        location.reload();
                     }
-                }, 5000)
+                }, 3000)
             }
         })
     })
