@@ -6,70 +6,7 @@ class cars extends model
     var $table = 'cars c';
     var $data;
 
-    function displayCarousel($cars){
-
-        for($i = 0; $i<3; $i++)
-        {
-            echo '<div class="col-md-4">
-                            <div class="card mb-2">
-                                <img class="card-img-top" src="../VIEW/img/'.$cars->data[$i]->picture.'"
-                                     alt="Card image cap">
-                                <div class="card-body">
-                                    <h4 class="card-title">'.$cars->data[$i]->model.'</h4>
-                                    <p class="card-text">
-                                    <ul class="list-group list-group-flush">
-                                    <li class="list-group-item"><i class="fas fa-euro-sign"></i></i> '.number_format($cars->data[$i]->unitprice, 2, ',', ' ').'</li>
-                                    <li class="list-group-item"><i class="fas fa-road"></i></i> '.number_format($cars->data[$i]->kilometer, 2, ',', ' ').' Km</li>
-                                    <li class="list-group-item"><i class="fas fa-gas-pump"></i> ' . $cars->data[$i]->fuel . '</li>
-                                    </ul>
-                                        </p>
-                                    <a href="../CONTROL/cars.php" class="btn btn-warning"><i class="far fa-eye"></i></a>
-                                </div>
-                            </div>
-                        </div>';
-        };
-
-    }
-
-    function displayCardCars($cars)
-    {
-        foreach ($cars->data as $k) {
-            echo '<div class="card">';
-
-            if($k->picture == NULL){
-                echo '<img class="card-img-top" src="../VIEW/img/no-image-icon.png" alt="Card image cap" height="238,49px">';
-            }else{
-                echo '<img class="card-img-top" src="../VIEW/img/'.$k->picture.'" alt="Card image cap">';
-                }
-
-            echo '<div class="card-body">';
-            echo '<h5 class="card-title">' . $k->model . '</h5>';
-            echo '<p class="card-text">' . $k->name . '</p>';
-            if ($k->isActive == 1) {
-                echo '<i class="fas fa-check"></i><span class="car-available"> Disponible</span>';
-            } else {
-                echo '<i class="fas fa-times"></i><span class="car-unavailable"> Vendue</span>';
-            }
-            echo '</div>';
-            echo '<ul class="list-group list-group-flush">';
-            echo  '<li class="list-group-item"><i class="fas fa-euro-sign"></i></i> ' . number_format($k->unitprice, 2, ',', ' ') . '</li>';
-            echo  '<li class="list-group-item"><i class="fas fa-road"></i> ' . number_format($k->kilometer, 2, ',', ' ') . ' km</li>';
-            echo '<li class="list-group-item"><i class="fas fa-tachometer-alt"></i> ' . $k->horsepower . ' CH</li>';
-            echo '<li class="list-group-item"><i class="fas fa-calendar-alt"></i> ' . $k->year . '</li>';
-            echo '<li class="list-group-item"><i class="fas fa-palette"></i> ' . $k->color . '</li>';
-            echo '<li class="list-group-item"><i class="fas fa-gas-pump"></i> ' . $k->fuel . '</li>';
-            echo '</ul>';
-            echo '<div class="card-body">';
-            if($k->isActive == 1){
-                echo '<td><button type="button" class="btn btn-warning btn-xl add_to_cart" id="'.$k->cars_ID.'"><i class="fas fa-cart-arrow-down"></i> Ajouter au panier</button></td>';
-            }else{
-                echo '<td><button type="button" class="btn btn-warning btn-xl add_to_cart" id="'.$k->cars_ID.'" disabled><i class="fas fa-cart-arrow-down"></i> Ajouter au panier</button></td>';
-            }
-            echo '</div>
-        </div>';
-        }
-    }
-
+    // Ajout d'une voiture dans la DB
     function addCar($brandsID, $model, $color, $km ,$fuel, $horsepower, $unitPrice,$year, $picture){
         $req= $this->stmt->prepare('CALL addCar(:pBrandsId,:pModel,:pColor,:pKm, :pFuel, :pHorsepower, :pUnitprice, :pYear, :pPicture)');
         $req->bindParam(":pBrandsId", $brandsID, PDO::PARAM_INT);
@@ -85,5 +22,10 @@ class cars extends model
 
     }
 
-
+    // Passage du statut de la voiture de en vente à vendue
+    function changeCarStatus($carsID){
+        $req= $this->stmt->prepare('CALL changeCarStatus(:pCarsID)');
+        $req->bindParam(":pCarsID", $carsID, PDO::PARAM_INT);
+        $req->execute();
+    }
 }

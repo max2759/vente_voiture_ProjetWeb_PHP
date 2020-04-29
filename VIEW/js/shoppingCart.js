@@ -41,6 +41,33 @@ $(document).ready(function(){
         })
     })
 
+    // validation du panier lors du clique sur valider
+    $('.validate-basket').on('click', function(){
+        // Création d'array vide pour stocker les carsID et le prix
+        var carsIDArray = [];
+        var finalPriceArray = [];
+
+        var orderID = $('#orderID').html();
+
+        // On va remplir les tableaux avec les valeurs de CarsID et du prix
+        $('.carsID').each(function() {
+            carsIDArray.push($(this).val());
+        })
+        $('.finalPrice').each(function() {
+            finalPriceArray.push($(this).val());
+        })
+
+        $.ajax({
+            url: '../CONTROL/shopping-cart-validate.php',
+            method: 'POST',
+            data:{orderID:orderID, finalPriceArray:finalPriceArray, carsIDArray:carsIDArray},
+            success: function(){
+                $('<div class="alert alert-success sell-basket-success"><i class="fas fa-cart-arrow-down"></i> Commande passée !</div>').prependTo('.car-page');
+                location.reload();
+            }
+        })
+    })
+
     // permet de calculer les valeurs rentrées dans chaque input dans le panier
     $('.fp').on('input', '.finalPrice', function(){
         var totalSum = 0;

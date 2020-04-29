@@ -6,7 +6,10 @@ class model
     protected $stmt;
     protected $table = '';
 
-    // Connexion à la DB
+    /**
+     * model constructor.
+     * Connexion à la DB
+     */
     public function __construct()
     {
         try {
@@ -20,7 +23,13 @@ class model
         }
     }
 
-    // Permet de faire des requêtes à la DB
+    /**
+     * Permet de faire des requêtes sql
+     * @param null $fields
+     * @param string $where
+     * @param string $innerJoin
+     * @param null $orderBy
+     */
     public function readDB($fields = NULL, $where ='', $innerJoin = '', $orderBy = NULL){
 
         //SI le champs fields est NULL, alors ce sera un select * from table
@@ -49,6 +58,7 @@ class model
         }
 
         try {
+            /*var_dump($sql);*/
             $select = $this->stmt->query($sql);
             $select->setFetchMode(PDO::FETCH_OBJ);
             $this->data = new stdClass();
@@ -71,16 +81,6 @@ class model
         return $req->fetchAll(PDO::FETCH_OBJ);
     }
 
-    /**
-     * Retourne le nombre de row d'une table selon une requête passée
-     * @param $query
-     * @return int
-     */
-    public function rowCount($query){
-        $req = $this->stmt->prepare($query);
-        $req->execute();
-        return $req->rowCount();
-    }
 
     static function load($nom){
         require('../MODEL/'.$nom.'.php');
