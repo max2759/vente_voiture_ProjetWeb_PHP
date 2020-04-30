@@ -19,13 +19,9 @@ for($i=0; $i<count($carsID); $i++){
     $orders->changeOrderStatus($orderID);
     $orderDetails->updateOrderDetails($finalPrice[$i],$carsID[$i],$orderID);
     $cars->changeCarStatus($carsID[$i]);
+    $_SESSION['successSell'] = "Vente effectuée !";
+    exit();
 }
 
-/*if(isset($orderID)){
-    $orders->changeOrderStatus($orderID);
-    $orderDetails->updateOrderDetails($finalPrice,$carsID,$orderID);
-    $cars->changeCarStatus($carsID);
-    unset($_SESSION['panier']);
-}else{
-    echo 'erreur';
-}*/
+
+

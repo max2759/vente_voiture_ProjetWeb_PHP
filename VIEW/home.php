@@ -65,7 +65,11 @@
 
     </div>
 
-    <div class="container my-4">
+    <?php
+    if($_SESSION['isAdmin'] == true) {
+
+
+        echo '<div class="container my-4">
         <h2>Dernière vente</h2>
         <hr class="my-4">
         <table class="table table-hover">
@@ -75,28 +79,29 @@
             <th scope="col">Prix de vente</th>
             <th scope="col">Vendu par</th>
 
-            <tbody>
+            <tbody>';
 
-            <?php
-            foreach ($orderDetails->data as $k)
-            {
-                echo '<tr>';
+        foreach ($orderDetails->data as $k) {
+            echo '<tr>';
 
-                echo '<td>'.$k->model.'</td>';
-                echo '<td>'.number_format($k->unitprice, 2, ',', ' ').' €</td>';
-                if($k->priceUnitOrder == $k->unitprice){
-                    echo '<td style="color: green">'.number_format($k->priceUnitOrder, 2, ',', ' ').' €</td>';
-                }else{
-                    echo '<td style="color: red">'.number_format($k->priceUnitOrder, 2, ',', ' ').' €</td>';
+            echo '<td>' . $k->model . '</td>';
+            echo '<td>' . number_format($k->unitprice, 2, ',', ' ') . ' €</td>';
+            if ($k->priceUnitOrder == $k->unitprice) {
+                echo '<td style="color: green">' . number_format($k->priceUnitOrder, 2, ',', ' ') . ' €</td>';
+            } else {
+                echo '<td style="color: red">' . number_format($k->priceUnitOrder, 2, ',', ' ') . ' €</td>';
 
-                }
-                echo '<td>'.$k->name.' '.$k->firstname.'</td>';
-                echo '</tr>';
             }
-            ?>
-            </tbody>
+            echo '<td>' . $k->name . ' ' . $k->firstname . '</td>';
+            echo '</tr>';
+        }
+
+        echo '</tbody>
         </table>
-    </div>
+    </div>';
+    }
+?>
+
 
 
 </div>

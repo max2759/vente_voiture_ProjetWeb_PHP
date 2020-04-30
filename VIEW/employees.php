@@ -28,18 +28,16 @@ $updateForm ->modalSend("validateUpdate","validateUpdate","disabled");
     /**
      * Message d'erreur ajout utilisateur via le back end php
      */
-    if (isset($_SESSION['errors'])) {
-        $msg = $_SESSION['errors'];
-        echo '<div class="alert alert-danger">' . $msg . '</div>';
-        unset($_SESSION['errors']);
+    if (isset($_SESSION['errorAddEmployee'])) {
+        echo '<div class="alert alert-danger">' . $_SESSION['errorAddEmployee'] . '</div>';
+        unset($_SESSION['errorAddEmployee']);
     }
     /**
      * Message de confirmation ajout utilisateur via le back end php
      */
-    if (isset($_SESSION['success'])) {
-        $msg = $_SESSION['success'];
-        echo '<div class="alert alert-success">' . $msg . '</div>';
-        unset($_SESSION['success']);
+    if (isset($_SESSION['successAddEmployee'])) {
+        echo '<div class="alert alert-success">' . $_SESSION['successAddEmployee'] . '</div>';
+        unset($_SESSION['successAddEmployee']);
     }
     ?>
 

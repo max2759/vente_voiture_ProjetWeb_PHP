@@ -31,30 +31,31 @@ if(isset($_POST['pseudo']) && isset($_POST['nom']) && isset($_POST['prenom']) &&
                             // crypter le mot de passe avec la fonction password_hash
                             $passHash = password_hash($pass, PASSWORD_DEFAULT);
                             $users->addUser($prenom, $nom, $passHash, $pseudo);
-                            header('location: ../CONTROL/employees.php');
+                            $_SESSION['successAddEmployee'] = "Les mots de passe ne correspondent pas";
+                            header('Location: employees.php');
                         }else{
                             session_start();
-                            $_SESSION['errors'] = "Les mots de passe ne correspondent pas";
-                            header("Location: ../CONTROL/employees.php");
+                            $_SESSION['errorAddEmployee'] = "Les mots de passe ne correspondent pas";
+                            header('Location: employees.php');
                             exit();
                         }
                     }else{
                         session_start();
-                        $_SESSION['errors'] = "Le mot de passe doit contenir au moins 4 caractère";
-                        header("Location: ../CONTROL/employees.php");
+                        $_SESSION['errorAddEmployee'] = "Le mot de passe doit contenir au moins 4 caractère";
+                        header('Location: employees.php');
                         exit();
                     }
                 }else{
                     session_start();
-                    $_SESSION['errors'] = "Le prénom doit commencer par une majuscule";
-                    header("Location: ../CONTROL/employees.php");
+                    $_SESSION['errorAddEmployee'] = "Le prénom doit commencer par une majuscule";
+                    header('Location: employees.php');
                     exit();
                 }
 
             }else{
                 session_start();
-                $_SESSION['errors'] = "Le nom doit commencer par une majuscule";
-                header("Location: ../CONTROL/employees.php");
+                $_SESSION['errorAddEmployee'] = "Le nom doit commencer par une majuscule";
+                header('Location: employees.php');
                 exit();
             }
 
@@ -62,19 +63,19 @@ if(isset($_POST['pseudo']) && isset($_POST['nom']) && isset($_POST['prenom']) &&
         }else{
             session_start();
             $_SESSION['errors'] = "L'utilisateur existe déjà";
-            header("Location: ../CONTROL/employees.php");
+            header("Location: employees.php");
             exit();
         }
     }else{
         session_start();
         $_SESSION['errors'] = "Le nom d'utilisateur doit être au format nompre avec 3 lettres pour le prénom et 3 pour le nom !";
-        header("Location: ../CONTROL/employees.php");
+        header("Location: employees.php");
         exit();
     }
 }else{
     session_start();
     $_SESSION['errors'] = "Un des champs n'est pas rempli !";
-    header("Location: ../CONTROL/employees.php");
+    header("Location: employees.php");
     exit();
 }
 

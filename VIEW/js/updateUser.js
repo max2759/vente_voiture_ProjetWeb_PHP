@@ -91,10 +91,8 @@ $(document).ready(function () {
     $('input').keyup(function () {
 
         if (nomEdit.val() !== "" && prenomEdit.val() !== "" && pseudoEdit.val() !== "") {
-            if (!($('.nomEditAlert').length) && !($('.prenomEditAlert').length) && !($('.passwordEditAlert').length)) {
+            if (!($('.nomEditAlert').length) && !($('.prenomEditAlert').length)) {
                 $("#validateUpdate").prop("disabled", false);
-            } else {
-                $("#validateUpdate").prop('disabled', true);
             }
 
         } else {

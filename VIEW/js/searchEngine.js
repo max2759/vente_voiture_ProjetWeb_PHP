@@ -18,7 +18,7 @@ function search(myID, myFile, myFile2){
                 $.ajax({
                     url: "../CONTROL/"+myFile2,
                     method: "POST",
-                    data:{value: "option1"},
+                    data:{value: "option2"},
                     async: true,
                     success: function (data) {
                         $('#results').html(data);
@@ -29,6 +29,7 @@ function search(myID, myFile, myFile2){
     })
 }
 
+// Affiche le resultat recherche en fonction du bouton radio choisi
 function radioChoice(radioClass, myFile){
     $(document).ready(function(){
         $('.'+ radioClass).on('click', function(){

@@ -5,6 +5,16 @@ $form->setNumber("Réduction", "promoField", "promoField", "","100","100", "", "
 
 ?>
 <div class="container">
+    <?php
+    /**
+    * Message pour avertir que l'ajout a bien été réalisée
+    */
+    if(isset($_SESSION['successSell'])){
+    echo '<div class="alert alert-success successCar">' . $_SESSION['successSell'] . '</div>';
+    unset($_SESSION['successSell']);
+
+    }
+    ?>
     <div class="container">
         <div class="card shopping-cart card-custom">
             <div class="card-header bg-dark text-light basket-header">
@@ -19,6 +29,7 @@ $form->setNumber("Réduction", "promoField", "promoField", "","100","100", "", "
             </div>
             <div class="card-body shop-body">
                 <?php
+                // on va venir tester si la variable de session est bien créée sinon on affiche un message
                     if(!empty($_SESSION['panier'])){
                         foreach ($_SESSION['panier'] as $k){
                   echo      '<!-- PRODUCT -->
@@ -60,7 +71,18 @@ $form->setNumber("Réduction", "promoField", "promoField", "","100","100", "", "
                 <div class="pull-right" style="margin: 10px">
                     <input type="submit" class="btn btn-success validate-basket pull-right">
                     <div class="pull-right" style="margin: 5px">
-                        Prix final: <b id="finalPriceSum"> 0 €</b>
+                        Prix final: <b id="finalPriceSum">
+                            <?php
+                            // boucle qui permet de récupérer chaque prix et de les additionner
+                            $sum  = 0;
+
+                                for($i = 0; $i<count($_SESSION['panier']); $i++ ){
+                                    $sum +=$_SESSION['panier'][$i]->priceUnitOrder;
+                                }
+
+                                echo number_format($sum, 2, ',', ' ');
+                            ?>
+                            €</b>
                     </div>
                 </div>
             </div>
@@ -68,5 +90,3 @@ $form->setNumber("Réduction", "promoField", "promoField", "","100","100", "", "
     </div>
 </div>
 
-
-<?php /*number_format($basket->total($_SESSION['panier']), 2, ',', ' ')*/  ?>

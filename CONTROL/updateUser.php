@@ -22,8 +22,8 @@ if (isset($nomEdit) && isset($prenomEdit) && isset($pseudoEdit) && !empty($nomEd
                         $passHash = password_hash($newPassEdit, PASSWORD_DEFAULT);
                         $users->updateUserAndPassword($nomEdit, $prenomEdit, $passHash, $employee_id);
                         session_start();
-                        $_SESSION['success'] = "Modifications effectuées";
                         header("Location: ../CONTROL/employees.php");
+                        $_SESSION['successAddEmployee'] = "Modifications effectuées";
                         exit();
                     } else {
                         session_start();

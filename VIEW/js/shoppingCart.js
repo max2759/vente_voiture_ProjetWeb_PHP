@@ -1,5 +1,6 @@
 $(document).ready(function(){
 
+    // Ajout de la voiture dans le panier en fonction de l'id
     $(document).on('click','.add_to_cart', function(){
      //Récupère id de la voiture
      var carsId = this.id;
@@ -36,7 +37,7 @@ $(document).ready(function(){
                         $('.del-basket-success').remove();
                         location.reload();
                     }
-                }, 3000)
+                }, 1000)
             }
         })
     })
@@ -57,12 +58,12 @@ $(document).ready(function(){
             finalPriceArray.push($(this).val());
         })
 
+        // on envoie le tout à php via ajax
         $.ajax({
             url: '../CONTROL/shopping-cart-validate.php',
             method: 'POST',
             data:{orderID:orderID, finalPriceArray:finalPriceArray, carsIDArray:carsIDArray},
             success: function(){
-                $('<div class="alert alert-success sell-basket-success"><i class="fas fa-cart-arrow-down"></i> Commande passée !</div>').prependTo('.car-page');
                 location.reload();
             }
         })
@@ -80,8 +81,9 @@ $(document).ready(function(){
         $('#finalPriceSum').text(addSpace(totalSum) + ' €');
     })
 
+
     function addSpace(numberString) {
-        var resultString = numberString + '',
+        var resultString = numberString + '' ,
             x = resultString.split('.'),
             x1 = x[0],
             x2 = x.length > 1 ? ',' + x[1] : '',

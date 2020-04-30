@@ -1,6 +1,7 @@
 <?php
 
 if(isset($_SESSION['isAdmin'])){
+
     $user = $_SESSION['pseudoLog'];
     $changePasswordForm = new Form("POST", "../CONTROL/changeUserPassword.php", "userChangePassword", "userChangePassword");
     $changePasswordForm->setText("Ancien mot de passe", "ancien&nbsp;mot&nbsp;de&nbsp;passe", "oldPass", "oldPass");
